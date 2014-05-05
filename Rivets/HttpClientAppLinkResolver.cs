@@ -11,7 +11,7 @@ namespace Rivets
 {
 	public class HttpClientAppLinkResolver : IAppLinkResolver
 	{
-		const string META_TAG_REGEX = @"<\s{0,}meta\s{0,}((property\s{0,}=('|"")(?<property>[^\""\']){0,}('|"")\s{1,})|(content\s{0,}=('|"")(?<content>[^\""\']){0,}('|"")\s{1,})){1,2}\s{0,}/{0,1}>";
+		const string META_TAG_REGEX = @"<\s{0,}meta\s{0,}((property\s{0,}=\s{0,}('|"")(?<property>[^\""\']{1,})('|"")\s{1,1})|(content\s{0,}=('|"")(?<content>[^\""\']{0,})('|"")\s{1,})){1,2}\s{0,}/{0,1}>";
 
 		const string META_TAG_PREFIX = "al";
 		const string KEY_AL_VALUE = "value";
@@ -40,6 +40,12 @@ namespace Rivets
 		}
 
 		#if PORTABLE
+		public async Task<AppLink> ResolveAppLinks (string url)
+		{
+			var uri = new Uri (url);
+			return await ResolveAppLinks (uri);
+		}
+
 		public async Task<AppLink> ResolveAppLinks (Uri url)
 		{
 			throw new NotImplementedException ("You can't call ResolveAppLink from the Portable Library");
