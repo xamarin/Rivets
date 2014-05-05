@@ -7,12 +7,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rivets.Android", "Rivets\Ri
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rivets.iOS", "Rivets\Rivets.iOS.csproj", "{C4F1CE5C-A13F-4361-BE64-D5336F5714A9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rivets.Net45", "Rivets\Rivets.Net45.csproj", "{B6AC84BE-9B3E-4330-ABD0-3FE97B45554E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rivets.Tests", "Rivets.Tests\Rivets.Tests.csproj", "{001F82A1-CD75-424B-9288-6D29C78759A9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{001F82A1-CD75-424B-9288-6D29C78759A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{001F82A1-CD75-424B-9288-6D29C78759A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{001F82A1-CD75-424B-9288-6D29C78759A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{001F82A1-CD75-424B-9288-6D29C78759A9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{432BB567-C11B-484B-BC05-6EFCD0AF036A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{432BB567-C11B-484B-BC05-6EFCD0AF036A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{432BB567-C11B-484B-BC05-6EFCD0AF036A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -21,6 +29,10 @@ Global
 		{5C5CC521-60F3-4021-88B5-A573EC569EA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C5CC521-60F3-4021-88B5-A573EC569EA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C5CC521-60F3-4021-88B5-A573EC569EA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6AC84BE-9B3E-4330-ABD0-3FE97B45554E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6AC84BE-9B3E-4330-ABD0-3FE97B45554E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6AC84BE-9B3E-4330-ABD0-3FE97B45554E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6AC84BE-9B3E-4330-ABD0-3FE97B45554E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C4F1CE5C-A13F-4361-BE64-D5336F5714A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C4F1CE5C-A13F-4361-BE64-D5336F5714A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4F1CE5C-A13F-4361-BE64-D5336F5714A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
