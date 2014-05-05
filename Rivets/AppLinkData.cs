@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Runtime.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Rivets
 {
-	[DataContract]
 	public class AppLinkData
 	{
 		public AppLinkData ()
@@ -12,17 +12,17 @@ namespace Rivets
 			UserAgent = "Rivets.NET 1.0";
 		}
 
-		[DataMember(Name="target_url")]
+		[JsonProperty("target_url")]
 		public string TargetUrl { get;set; }
 
-		[DataMember(Name="version")]
+		[JsonProperty("version")]
 		public string Version { get;set; }
 
-		[DataMember(Name="user_agent")]
+		[JsonProperty("user_agent")]
 		public string UserAgent { get;set; }
 
-		[DataMember(Name="extras")]
-		public string Extras { get;set; }
+		[JsonProperty("extras")]
+		public JObject Extras { get;set; }
 	}
 }
 

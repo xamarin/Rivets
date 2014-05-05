@@ -8,4 +8,5 @@ obj
 *.dotSettings
 *.suo
 Resource.designer.cs
-lib
+lib/
+packages/

@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 
 #if !PORTABLE
-using System.Json;
+using Newtonsoft.Json.Linq;
 #endif
 using System.Collections.Generic;
 
@@ -72,7 +72,7 @@ namespace Rivets
 					if (!string.IsNullOrEmpty (referrerData)) {
 
 						try {
-							var jsonReferer = JsonObject.Parse (referrerData);
+							var jsonReferer = JObject.Parse (referrerData);
 							var referrerUrl = new Uri(jsonReferer["url"].ToString());
 							var referrerAppName = jsonReferer["app_name"].ToString();
 							// According to specs, the app store id shouldn't get passed in the referrer
@@ -102,14 +102,11 @@ namespace Rivets
 			AppLinkData result = null;
 
 			try {
-				using (var ms = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(appLinkDataJson))) {
-					var jsonSerializer = new System.Runtime.Serialization.Json.DataContractJsonSerializer (typeof(AppLinkData));
-					result = (AppLinkData)jsonSerializer.ReadObject (ms);
-				}
+				result = (AppLinkData)Newtonsoft.Json.JsonConvert.DeserializeObject(appLinkDataJson);
 			}catch (Exception ex) {
 				Debug.WriteLine (ex);
 			}
-			å
+
 			return result;
 		}
 
