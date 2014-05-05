@@ -1,0 +1,11 @@
+tools
+bin
+obj
+*.xam
+*.DS_Store
+*.pidb
+*.userprefs
+*.dotSettings
+*.suo
+Resource.designer.cs
+lib
