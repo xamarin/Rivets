@@ -10,37 +10,26 @@ namespace Rivets.Tests
 	[TestFixture ()]
 	public class TestMetaDataParsing
 	{
+		const string HOST_BASE = "http://localhost:4477/";
 
 		[SetUp]
 		public void Setup()
 		{
-			var url = "http://localhost:4477";
 			var root = System.IO.Path.Combine (AppDomain.CurrentDomain.BaseDirectory, "..", "..", "Html");
-
-			var fileSystem = new PhysicalFileSystem(root);
-
 			var options = new FileServerOptions
 			{
 				EnableDirectoryBrowsing = true, 
-				FileSystem = fileSystem                             
+				FileSystem = new PhysicalFileSystem(root)
 			};
 
-			WebApp.Start(url, builder => builder.UseFileServer(options));            
-			Console.WriteLine("Listening at " + url);
-
-		}
-
-		[TearDown]
-		public void TearDown()
-		{
-
+			WebApp.Start(HOST_BASE, builder => builder.UseFileServer(options));            
 		}
 
 		[Test ()]
 		public void SimpleAndroidMetaDataTest ()
 		{
 			var resolver = new HttpClientAppLinkResolver ();
-			var appLinks = resolver.ResolveAppLinks ("http://localhost:4477/SimpleAndroidMetaData.html").Result;
+			var appLinks = resolver.ResolveAppLinks (HOST_BASE + "SimpleAndroidMetaData.html").Result;
 
 			Assert.IsNotNull (appLinks);
 			Assert.Greater (appLinks.Targets.Count, 0);
