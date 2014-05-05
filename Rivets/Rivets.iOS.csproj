@@ -52,6 +52,7 @@
     <Compile Include="IAppLinkResolver.cs" />
     <Compile Include="IAppLinkTarget.cs" />
     <Compile Include="NavigationResult.cs" />
+    <Compile Include="AppLinkNavigator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

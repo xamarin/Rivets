@@ -58,6 +58,7 @@
     <Compile Include="IAppLinkTarget.cs" />
     <Compile Include="NavigationResult.cs" />
     <Compile Include="AppLinkUrl.cs" />
+    <Compile Include="AppLinkNavigator.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml" />
