@@ -1,13 +1,13 @@
-﻿using NUnit.Framework;
-using System;
-using Microsoft.Owin.Hosting;
-using Owin;
+﻿using System;
 using Microsoft.Owin.FileSystems;
+using Microsoft.Owin.Hosting;
 using Microsoft.Owin.StaticFiles;
+using NUnit.Framework;
+using Owin;
 
 namespace Rivets.Tests
 {
-	[TestFixture ()]
+	[TestFixture ]
 	public class TestMetaDataParsing
 	{
 		const string HOST_BASE = "http://localhost:4477/";
@@ -25,7 +25,7 @@ namespace Rivets.Tests
 			WebApp.Start(HOST_BASE, builder => builder.UseFileServer(options));            
 		}
 
-		[Test ()]
+		[Test]
 		public void SimpleAndroidMetaDataTest ()
 		{
 			var resolver = new HttpClientAppLinkResolver ();
