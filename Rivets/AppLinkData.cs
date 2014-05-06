@@ -8,8 +8,8 @@ namespace Rivets
 	{
 		public AppLinkData ()
 		{
-			Version = "1.0";
-			UserAgent = "Rivets.NET 1.0";
+			Version = AppLinks.Version;
+			UserAgent = AppLinks.UserAgent;
 		}
 
 		[JsonProperty("target_url")]
