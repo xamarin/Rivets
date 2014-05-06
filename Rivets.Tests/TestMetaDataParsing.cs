@@ -34,6 +34,64 @@ namespace Rivets.Tests
 			Assert.IsNotNull (appLinks);
 			Assert.Greater (appLinks.Targets.Count, 0);
 		}
+
+		[Test]
+		public void SimpleiOSMetaDataTest ()
+		{
+			var resolver = new HttpClientAppLinkResolver ();
+			var appLinks = resolver.ResolveAppLinks (HOST_BASE + "SimpleiOSMetaData.html").Result;
+
+			Assert.IsNotNull (appLinks);
+			Assert.Greater (appLinks.Targets.Count, 0);
+
+			Assert.IsTrue (appLinks.Targets [0] is IOSAppLinkTarget);
+			var t = (IOSAppLinkTarget)appLinks.Targets [0];
+			Assert.AreEqual (t.Url.ToString(), "example://products/?id=widget");
+			Assert.AreEqual (t.AppStoreId, "12345");
+			Assert.AreEqual (t.AppName, "Example Store");
+		}
+
+		[Test]
+		public void SimpleiPhoneMetaDataTest ()
+		{
+			var resolver = new HttpClientAppLinkResolver ();
+			var appLinks = resolver.ResolveAppLinks (HOST_BASE + "SimpleiPhoneMetaData.html").Result;
+
+			Assert.IsNotNull (appLinks);
+			Assert.Greater (appLinks.Targets.Count, 0);
+
+			Assert.IsTrue (appLinks.Targets [0] is IPhoneAppLinkTarget);
+			var t = (IOSAppLinkTarget)appLinks.Targets [0];
+			Assert.AreEqual (t.Url.ToString(), "example://products/?id=widget");
+			Assert.AreEqual (t.AppStoreId, "12345");
+			Assert.AreEqual (t.AppName, "Example Store");
+		}
+
+		[Test]
+		public void SimpleiPadMetaDataTest ()
+		{
+			var resolver = new HttpClientAppLinkResolver ();
+			var appLinks = resolver.ResolveAppLinks (HOST_BASE + "SimpleiPadMetaData.html").Result;
+
+			Assert.IsNotNull (appLinks);
+			Assert.Greater (appLinks.Targets.Count, 0);
+
+			Assert.IsTrue (appLinks.Targets [0] is IPadAppLinkTarget);
+			var t = (IOSAppLinkTarget)appLinks.Targets [0];
+			Assert.AreEqual (t.Url.ToString(), "example://products/?id=widget");
+			Assert.AreEqual (t.AppStoreId, "12345");
+			Assert.AreEqual (t.AppName, "Example Store");
+		}
+
+		[Test]
+		public void MultiTargetsMetaData ()
+		{
+			var resolver = new HttpClientAppLinkResolver ();
+			var appLinks = resolver.ResolveAppLinks (HOST_BASE + "MultiTargetsMetaData.html").Result;
+
+			Assert.IsNotNull (appLinks);
+			Assert.AreEqual (appLinks.Targets.Count, 4);
+		}
 	}
 }
 

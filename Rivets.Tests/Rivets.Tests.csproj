@@ -67,6 +67,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Html\SimpleiOSMetaData.html" />
+    <None Include="Html\SimpleiPhoneMetaData.html" />
+    <None Include="Html\SimpleiPadMetaData.html" />
+    <None Include="Html\MultiTargetsMetaData.html" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Html\" />
