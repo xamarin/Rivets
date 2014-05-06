@@ -10,6 +10,12 @@ namespace Rivets
 		Task<NavigationResult> Navigate(Uri url, AppLinkData appLinkData);
 
 		Task<NavigationResult> Navigate(string url, AppLinkData appLinkData);
+
+		Task<NavigationResult> Navigate(AppLink appLink, AppLinkData appLinkData, RefererAppLink refererAppLink);
+
+		Task<NavigationResult> Navigate(Uri url, AppLinkData appLinkData, RefererAppLink refererAppLink);
+
+		Task<NavigationResult> Navigate(string url, AppLinkData appLinkData, RefererAppLink refererAppLink);
 	}
 }
 

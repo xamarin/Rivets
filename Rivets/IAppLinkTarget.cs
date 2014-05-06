@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Rivets
 {
@@ -37,6 +38,21 @@ namespace Rivets
 
 	public class IPadAppLinkTarget : IOSAppLinkTarget
 	{
+	}
+
+	public class RefererAppLink
+	{
+		[JsonProperty("target_url")]
+		public Uri TargetUrl { get;set; }
+
+		[JsonProperty("url")]
+		public Uri Url { get;set; }
+
+		[JsonProperty("app_name")]
+		public string AppName { get;set; }
+
+		[JsonProperty("app_store_id")]
+		public string AppStoreId { get;set; }
 	}
 }
 

@@ -24,7 +24,22 @@ namespace Rivets
 
 		public static IAppLinkResolver DefaultResolver { get; set; }
 
+		public async Task<NavigationResult> Navigate (AppLink appLink, AppLinkData appLinkData)
+		{
+			return await Navigate (appLink, appLinkData, null);
+		}
+
 		public async Task<NavigationResult> Navigate (Uri url, AppLinkData appLinkData)
+		{
+			return await Navigate (url, appLinkData, null);
+		}
+
+		public async Task<NavigationResult> Navigate (string url, AppLinkData appLinkData)
+		{
+			return await Navigate (url, appLinkData, null);
+		}
+
+		public async Task<NavigationResult> Navigate (Uri url, AppLinkData appLinkData, RefererAppLink refererAppLink)
 		{
 			var appLink = await DefaultResolver.ResolveAppLinks (url);
 
@@ -34,19 +49,19 @@ namespace Rivets
 			return NavigationResult.Failed;
 		}
 
-		public async Task<NavigationResult> Navigate (string url, AppLinkData appLinkData)
+		public async Task<NavigationResult> Navigate (string url, AppLinkData appLinkData, RefererAppLink refererAppLink)
 		{
 			var uri = new Uri (url);
 			return await Navigate(uri, appLinkData);
 		}
 
 		#if PORTABLE
-		public async Task<NavigationResult> Navigate (AppLink appLink, AppLinkData appLinkData)
+		public async Task<NavigationResult> Navigate (AppLink appLink, AppLinkData appLinkData, RefererAppLink refererAppLink)
 		{
 			throw new NotSupportedException ("You can't run this from the Portable Library.  Reference a platform Specific Library Instead");
 		}
 		#elif __IOS__
-		public async Task<NavigationResult> Navigate (AppLink appLink, AppLinkData appLinkData)
+		public async Task<NavigationResult> Navigate (AppLink appLink, AppLinkData appLinkData, RefererAppLink refererAppLink)
 		{
 			try {
 				// Find the first eligible/launchable target in the BFAppLink.
@@ -60,7 +75,7 @@ namespace Rivets
 				}
 
 				if (eligibleTarget != null) {
-					var appLinkUrl = BuildUrl(appLink, eligibleTarget.Url, appLinkData);
+					var appLinkUrl = BuildUrl(appLink, eligibleTarget.Url, appLinkData, refererAppLink);
 					
 					// Attempt to navigate
 					if (UIApplication.SharedApplication.OpenUrl(appLinkUrl))
@@ -69,7 +84,7 @@ namespace Rivets
 
 				// Fall back to opening the url in the browser if available.
 				if (appLink.WebUrl != null) {
-					var navigateUrl = BuildUrl(appLink, appLink.WebUrl, appLinkData);
+					var navigateUrl = BuildUrl(appLink, appLink.WebUrl, appLinkData, refererAppLink);
 					
 					// Attempt to navigate
 					if (UIApplication.SharedApplication.OpenUrl(navigateUrl))
@@ -84,7 +99,7 @@ namespace Rivets
 			return NavigationResult.Failed;
 		}
 
-		Uri BuildUrl(AppLink appLink, Uri targetUrl, AppLinkData appLinkData) 
+		Uri BuildUrl(AppLink appLink, Uri targetUrl, AppLinkData appLinkData, RefererAppLink refererAppLink) 
 		{
 			if (appLinkData == null)
 				appLinkData = new AppLinkData ();
@@ -95,7 +110,11 @@ namespace Rivets
 			
 			var builder = new UriBuilder (targetUrl);
 			var query = System.Web.HttpUtility.ParseQueryString (builder.Query);
-			query ["al_applink_data"] = json;
+			query ["al_applink_data"] = System.Web.HttpUtility.UrlEncode(json);
+
+			if (refererAppLink != null)
+				query ["referer_app_link"] = System.Web.HttpUtility.UrlEncode(Newtonsoft.Json.JsonConvert.SerializeObject (refererAppLink));
+
 			builder.Query = query.ToString ();
 			
 			return builder.Uri;

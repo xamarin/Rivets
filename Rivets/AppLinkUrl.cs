@@ -108,7 +108,7 @@ namespace Rivets
 			AppLinkData result = null;
 
 			try {
-				result = (AppLinkData)Newtonsoft.Json.JsonConvert.DeserializeObject<AppLinkData>(appLinkDataJson);
+				result = Newtonsoft.Json.JsonConvert.DeserializeObject<AppLinkData>(appLinkDataJson);
 			}catch (Exception ex) {
 				Debug.WriteLine (ex);
 			}
