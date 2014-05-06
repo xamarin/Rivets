@@ -12,8 +12,8 @@ namespace Rivets.Tests
 	{
 		const string HOST_BASE = "http://localhost:4477/";
 
-		[SetUp]
-		public void Setup()
+		[TestFixtureSetUp]
+		public void FixtureSetup()
 		{
 			var root = System.IO.Path.Combine (AppDomain.CurrentDomain.BaseDirectory, "..", "..", "Html");
 			var options = new FileServerOptions
