@@ -154,7 +154,7 @@ App Links recommends showing the "Touch to Return" banner at the top of the scre
 
 ![Sample Touch to Return Bar](UI-iOS-Sample.png)
 
-In Rivets, you can use the class `RefererViewBar` to help you display a Touch to Return banner in your app:
+In the Rivets assembly built specifically for iOS, there is a class called `RefererViewBar` that does not exist in any of the other platform specific libraries.  You can use this class to help you display a Touch to Return banner in your app:
 
 ```csharp
 
