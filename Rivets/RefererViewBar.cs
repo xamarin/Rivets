@@ -40,8 +40,6 @@ namespace Rivets
 
 			var nc = NSNotificationCenter.DefaultCenter;
 
-			observers.Add (nc.AddObserver (UIApplication.WillChangeStatusBarFrameNotification, StatusBarFrameWillChange));
-			observers.Add (nc.AddObserver (UIApplication.DidChangeStatusBarFrameNotification, StatusBarFrameDidChange));
 			observers.Add (nc.AddObserver (UIDevice.OrientationDidChangeNotification, OrientationDidChange));
 
 			rootView = new UIView (controller.View.Bounds);
@@ -227,6 +225,8 @@ namespace Rivets
 		{
 			Hide ();
 
+			NSNotificationCenter.DefaultCenter.RemoveObservers (observers);
+
 			baseView.RemoveFromSuperview ();
 			controllerView.RemoveFromSuperview ();
 			AttachedToController.View = controllerView;
@@ -247,16 +247,6 @@ namespace Rivets
 			return statusBarHeight;
 		}
 
-		void StatusBarFrameWillChange (NSNotification notification) 
-		{
-			//Layout ();
-		}
-
-		void StatusBarFrameDidChange (NSNotification notification) 
-		{
-			//Layout ();
-		}
-
 		void OrientationDidChange (NSNotification notification)
 		{
 			Layout ();
@@ -268,8 +258,7 @@ namespace Rivets
 
 				Remove ();
 
-				var navigator = new AppLinkNavigator ();
-				var result = await navigator.Navigate (refererAppLink, null);
+				var result = await AppLinks.Navigator.Navigate (refererAppLink);
 
 				var evt2 = OnNavigatedToAppLink;
 				if (evt2 != null)
