@@ -165,6 +165,7 @@ namespace Rivets
 					continue;
 
 				Intent targetIntent = new Intent (Intent.ActionView);
+				//targetIntent.AddCategory (Android.Content.Intent.CategoryDefault);
 
 				if (target.Url != null)
 					targetIntent.SetData (Android.Net.Uri.Parse(target.Url.ToString()));
@@ -176,7 +177,11 @@ namespace Rivets
 				if (target.Class != null)
 					targetIntent.SetClassName (target.Package, target.Class);
 
-				targetIntent.PutExtra (KEY_APP_LINK_DATA, Newtonsoft.Json.JsonConvert.SerializeObject(appLinkData));
+				var appLinkDataJson = string.Empty;
+				if (appLinkData != null)
+					appLinkDataJson = Newtonsoft.Json.JsonConvert.SerializeObject (appLinkData);
+
+				targetIntent.PutExtra (KEY_APP_LINK_DATA, appLinkDataJson);
 
 				var resolved = pm.ResolveActivity (targetIntent, Android.Content.PM.PackageInfoFlags.MatchDefaultOnly);
 				if (resolved != null) {
@@ -186,6 +191,7 @@ namespace Rivets
 			}
 
 			if (eligibleTargetIntent != null) {
+				eligibleTargetIntent.AddFlags (ActivityFlags.NewTask);
 				context.StartActivity (eligibleTargetIntent);
 				return NavigationResult.App;
 			}
