@@ -88,7 +88,7 @@ namespace Rivets
 			base.Dispose ();
 		}
 
-		void ShowViewForRefererAppLink (AppLink refererAppLink)
+		public void ShowViewForRefererAppLink (AppLink refererAppLink)
 		{
 			ReturnToView.RefererAppLink = refererAppLink;
 
@@ -103,9 +103,9 @@ namespace Rivets
 			}
 		}
 
-		void ShowViewForRefererUrl(NSUrl url)
+		public void ShowViewForRefererUrl(Uri url)
 		{
-			var apurl = new AppLinkUrl(url.ToString());
+			var apurl = new AppLinkUrl(url);
 			ShowViewForRefererAppLink (apurl.Referrer);
 		}
 
