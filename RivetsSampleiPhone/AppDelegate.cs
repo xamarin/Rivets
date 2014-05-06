@@ -42,7 +42,7 @@ namespace RivetsSampleiPhone
 
 		public override bool OpenUrl (UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
 		{
-			var rurl = new Rivets.AppLinkUrl (new Uri (url.ToString ()));
+			var rurl = new Rivets.AppLinkUrl (url.ToString ());
 
 			var id = string.Empty;
 
