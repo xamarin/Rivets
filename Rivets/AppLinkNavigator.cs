@@ -86,6 +86,9 @@ namespace Rivets
 
 		Uri BuildUrl(AppLink appLink, Uri targetUrl, AppLinkData appLinkData) 
 		{
+			if (appLinkData == null)
+				appLinkData = new AppLinkData ();
+
 			appLinkData.TargetUrl = appLink.SourceUrl.ToString();
 
 			var json = Newtonsoft.Json.JsonConvert.SerializeObject (appLinkData);
