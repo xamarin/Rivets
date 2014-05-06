@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Threading.Tasks;
 using MonoTouch.Foundation;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Rivets
 {
@@ -57,13 +58,16 @@ namespace Rivets
 
 			baseView = new UIView (new RectangleF (0, 0, controller.View.Bounds.Width, BAR_HEIGHT + statusBarHeight));
 
+			var target = RefererLink.Targets.FirstOrDefault ();
+			if (target != null)
+				lblText = "Tap to return to " + (target.AppName ?? " previous app");
 
 			labelText = new UILabel (new RectangleF (0, statusBarHeight, baseView.Frame.Width - BUTTON_WIDTH, BAR_HEIGHT));
 			labelText.AutoresizingMask = UIViewAutoresizing.FlexibleWidth;
-			labelText.Text = "Tap to return to previous app";
 			labelText.Font = UIFont.SystemFontOfSize (UIFont.SmallSystemFontSize);
 			labelText.TextAlignment = UITextAlignment.Center;
 			labelText.UserInteractionEnabled = true;
+			labelText.Text = lblText;
 
 			buttonClose = new UIButton (UIButtonType.Custom);
 			buttonClose.Frame = new RectangleF (labelText.Frame.Right, statusBarHeight, BUTTON_WIDTH, BUTTON_WIDTH);
@@ -106,6 +110,7 @@ namespace Rivets
 			UpdateColors ();
 		}
 
+		string lblText = "Tap to return to previous app";
 		UIColor bgColor = UIColor.Gray;
 		UIColor fgColor = UIColor.White;
 
@@ -122,6 +127,14 @@ namespace Rivets
 			set {
 				fgColor = value;
 				UpdateColors ();
+			}
+		}
+
+		public string LabelText { 
+			get { return lblText; }
+			set {
+				lblText = value;
+				labelText.Text = lblText;
 			}
 		}
 
