@@ -26,6 +26,37 @@ namespace Rivets
 
 		public static IAppLinkResolver DefaultResolver { get; set; }
 
+		#region Overloads
+		public async Task<NavigationResult> Navigate(AppLink appLink)
+		{
+			return await Navigate (appLink, null, null);
+		}
+
+		public async Task<NavigationResult> Navigate(Uri url)
+		{
+			return await Navigate (url, null, null);
+		}
+
+		public async Task<NavigationResult> Navigate(string url)
+		{
+			return await Navigate (url, null, null);
+		}
+
+		public async Task<NavigationResult> Navigate(AppLink appLink, RefererAppLink refererAppLink)
+		{
+			return await Navigate (appLink, null, refererAppLink);
+		}
+
+		public async Task<NavigationResult> Navigate(Uri url, RefererAppLink refererAppLink)
+		{
+			return await Navigate (url, null, refererAppLink);
+		}
+
+		public async Task<NavigationResult> Navigate(string url, RefererAppLink refererAppLink)
+		{
+			return await Navigate (url, null, refererAppLink);
+		}
+
 		public async Task<NavigationResult> Navigate (AppLink appLink, AppLinkData appLinkData)
 		{
 			return await Navigate (appLink, appLinkData, null);
@@ -40,7 +71,9 @@ namespace Rivets
 		{
 			return await Navigate (url, appLinkData, null);
 		}
+		#endregion
 
+		#region Overloads that do implicit resolving of App Links
 		public async Task<NavigationResult> Navigate (Uri url, AppLinkData appLinkData, RefererAppLink refererAppLink)
 		{
 			var appLink = await DefaultResolver.ResolveAppLinks (url);
@@ -56,6 +89,7 @@ namespace Rivets
 			var uri = new Uri (url);
 			return await Navigate(uri, appLinkData);
 		}
+		#endregion
 
 		#if PORTABLE
 		public async Task<NavigationResult> Navigate (AppLink appLink, AppLinkData appLinkData, RefererAppLink refererAppLink)
