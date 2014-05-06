@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using System.Linq;
+
 #if __IOS__
 using MonoTouch.UIKit;
 #endif
@@ -65,14 +67,8 @@ namespace Rivets
 		{
 			try {
 				// Find the first eligible/launchable target in the BFAppLink.
-				IAppLinkTarget eligibleTarget = default(IAppLinkTarget);
-
-				foreach (var target in appLink.Targets) {
-					if (UIApplication.SharedApplication.CanOpenUrl(target.Url)) {
-						eligibleTarget = target;
-						break;
-					}
-				}
+				var eligibleTarget = appLink.Targets.FirstOrDefault(t => 
+					UIApplication.SharedApplication.CanOpenUrl(t.Url));
 
 				if (eligibleTarget != null) {
 					var appLinkUrl = BuildUrl(appLink, eligibleTarget.Url, appLinkData, refererAppLink);
