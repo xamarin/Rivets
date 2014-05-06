@@ -31,6 +31,23 @@ namespace RivetsSampleiPhone
 						var result = await navigator.Navigate(appLinks, null);
 
 						Console.WriteLine(result);
+					}),
+
+					new StyledStringElement("App Link to widget with Referer", async () => {
+						var url = "https://rawgit.com/Redth/Rivets/master/Rivets.Tests/Html/SimpleiOSMetaData.html";
+
+						var resolver = new Rivets.HttpClientAppLinkResolver();
+						var appLinks = await resolver.ResolveAppLinks(url);
+
+						var referer = new Rivets.RefererAppLink {
+							TargetUrl = new Uri(url),
+							Url = new Uri("example://"),
+							AppName = "Example Store"
+						};
+						var navigator = new Rivets.AppLinkNavigator();
+						var result = await navigator.Navigate(appLinks, null, referer);
+
+						Console.WriteLine(result);
 					})
 				},
 			};

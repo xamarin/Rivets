@@ -44,11 +44,17 @@ namespace RivetsSampleiPhone
 		{
 			var rurl = new Rivets.AppLinkUrl (new Uri (url.ToString ()));
 
-			var id = rurl.InputQueryParameters ["id"];
+			var id = string.Empty;
 
-			if (rurl.TargetUrl.Host.Equals ("products") && !string.IsNullOrEmpty (id)) {
+			if (rurl.InputQueryParameters.ContainsKey("id"))
+				id = rurl.InputQueryParameters ["id"];
+
+			if (rurl.InputUrl.Host.Equals ("products") && !string.IsNullOrEmpty (id)) {
 				var c = new ProductViewController (id, rurl.Referrer);
 				navController.PushViewController (c, true);
+				return true;
+			} else {
+				navController.PopToRootViewController (true);
 				return true;
 			}
 

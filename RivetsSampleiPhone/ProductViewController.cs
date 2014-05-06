@@ -40,19 +40,35 @@ namespace RivetsSampleiPhone
 
 		Rivets.ReturnToRefererViewController returnToRefererController;
 
+		UIStatusBarStyle originalStatusBarStyle = UIApplication.SharedApplication.StatusBarStyle;
+
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
 
-			returnToRefererController = new Rivets.ReturnToRefererViewController ();
+			returnToRefererController = new Rivets.ReturnToRefererViewController (NavigationController);
 		}
 
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);
 
-			if (RefererAppLink != null)
+			if (RefererAppLink != null) {
+
+				UIApplication.SharedApplication.SetStatusBarStyle (UIStatusBarStyle.LightContent, true);
 				returnToRefererController.ShowViewForRefererAppLink (RefererAppLink);
+			}
+		}
+
+		public override void ViewWillDisappear (bool animated)
+		{
+			UIApplication.SharedApplication.SetStatusBarStyle (originalStatusBarStyle, true);
+			base.ViewWillDisappear (animated);
+		}
+
+		public override UIStatusBarStyle PreferredStatusBarStyle ()
+		{
+			return RefererAppLink != null ? UIStatusBarStyle.LightContent : UIStatusBarStyle.Default;
 		}
 	}
 }

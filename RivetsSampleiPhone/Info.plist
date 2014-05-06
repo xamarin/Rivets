@@ -41,5 +41,7 @@
 			<string>Viewer</string>
 		</dict>
 	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 </dict>
 </plist>
