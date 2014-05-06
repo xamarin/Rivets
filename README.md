@@ -59,16 +59,18 @@ To show you a simple example, this might be how you advertise App Links to your 
 
 ### Using Rivets in your Apps
 
-Using Rivets in your app is quite simple.  First you'll want to obtain a link to a page which has some App Links metadata.  Then, you'll want to resolve that page's App Links:
+Using Rivets in your app is quite simple.  At the most basic level, you can just use the Navigator to automatically resolve App Link metadata from a url and navigate to it:
 
 ```csharp
-var resolver = new HttpClientAppLinksResolver();
-var appLinks = await resolver.ResolveAppLinks("http://example.com/products/widget");
+var result = await AppLinks.Navigator.Navigate ("http://example.com/products/widget");
 ```
 
-Once you have resolved App Links, you can then navigate to them.  The navigator will help you with this:
+If you want to understand a bit more about what's going on under the hood, there are actually two steps.  The first step is using the default Resolver (In Rivets that would be `HttpClientAppLinksResolver` to go out and parse `<metadata .../>` from the given url.  If it finds any targets, it will try to navigate to the target which is the best match:
 
 ```csharp
+var resolver = new HttpClientAppLinkResolver();
+var appLinks = await resolver.ResolveAppLinks ("http://example.com/products/widget");
+
 var navigator = new AppLinkNavigator();
 var status = await navigator.Navigate(appLinks);
 
