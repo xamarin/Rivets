@@ -40,6 +40,7 @@
     <Compile Include="AppLink.cs" />
     <Compile Include="AppLinkUrl.cs" />
     <Compile Include="AppLinkNavigator.cs" />
+    <Compile Include="AppLinks.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
