@@ -150,7 +150,7 @@ namespace Rivets
 			return builder.Uri;
 		}
 		#elif __ANDROID__
-		public async Task<NavigationResult> Navigate (AppLink appLink, AppLinkData appLinkData)
+		public async Task<NavigationResult> Navigate (AppLink appLink, AppLinkData appLinkData, RefererAppLink refererAppLink)
 		{
 			var context = Android.App.Application.Context;
 			var pm = context.PackageManager;
@@ -211,7 +211,7 @@ namespace Rivets
 			return NavigationResult.Failed;
 		}
 		#else
-		public async Task<NavigationResult> Navigate (AppLink appLink, AppLinkData appLinkData)
+		public async Task<NavigationResult> Navigate (AppLink appLink, AppLinkData appLinkData, RefererAppLink refererAppLink)
 		{
 			if (appLink.WebUrl != null) {
 				System.Diagnostics.Process.Start(appLink.WebUrl.ToString());
