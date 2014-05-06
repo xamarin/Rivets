@@ -32,11 +32,22 @@ namespace Rivets
 		public delegate void DidNavigateToAppLinkDelegate(AppLink appLink, NavigationResult result);
 		public event DidNavigateToAppLinkDelegate OnDidNavigateToAppLink;
 
+		public UIColor BackgroundColor {
+			get { return view.BackgroundColor; }
+			set { view.BackgroundColor = value; }
+		}
+
+		public UIColor TextColor {
+			get { return view.TextColor; }
+			set { view.TextColor = value; }
+		}
+
 		ReturnToRefererView view;
 		ReturnToRefererView ReturnToView { 
 			get {
 				if (view == null) {
 					view = new ReturnToRefererView ();
+					view.OnReturnToRefererView += HandleOnReturnToRefererViewAction;
 					if (attachedToNavController != null) {
 						attachedToNavController.View.AddSubview (view);
 					}
@@ -94,8 +105,11 @@ namespace Rivets
 
 			ReturnToView.SizeToFit ();
 
+
+			ReturnToView.Frame = new RectangleF (ReturnToView.Frame.X, ReturnToView.Frame.Y, this.View.Frame.Width, 52f);
+
 			if (attachedToNavController != null) {
-				if (ReturnToView.Closed) {
+				if (!ReturnToView.Closed) {
 					BeginInvokeOnMainThread (() => {
 						MoveNavigationBar();
 					});

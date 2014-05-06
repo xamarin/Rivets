@@ -49,6 +49,14 @@ namespace Rivets
 			}
 		}
 
+		public UIColor BgColor { 
+			get { return backgroundColor; }
+			set {
+				backgroundColor = value;
+				UpdateColors ();
+			}
+		}
+
 		public AppLink RefererAppLink { 
 			get { return refererAppLink; }
 			set {
@@ -67,7 +75,8 @@ namespace Rivets
 
 		AppLink refererAppLink;
 		IncludeStatusBarInSize includeStatusBarInSize;
-		UIColor textColor;
+		UIColor textColor = UIColor.White;
+		UIColor backgroundColor = UIColor.Blue;
 		public bool Closed = false;
 		UILabel labelView;
 		UIButton closeButton;
@@ -76,18 +85,18 @@ namespace Rivets
 
 		void InitializeViews()
 		{
+
 			if (labelView == null && closeButton == null) {
 				closeButton = new UIButton (UIButtonType.Custom);
 				closeButton.BackgroundColor = UIColor.Clear;
 				closeButton.UserInteractionEnabled = true;
 				closeButton.ClipsToBounds = true;
 				closeButton.AutoresizingMask = UIViewAutoresizing.FlexibleLeftMargin | UIViewAutoresizing.FlexibleTopMargin;
-				closeButton.AddTarget ((sender, e) => {
+				closeButton.TouchUpInside += delegate {
 					var evt = OnReturnToRefererView;
 					if (evt != null)
-						evt(null);
-				}, UIControlEvent.TouchUpInside);
-
+						evt(null);	
+				};
 				AddSubview (closeButton);
 
 
@@ -125,7 +134,6 @@ namespace Rivets
 			var labelSize = labelView.SizeThatFits (bounds.Size);
 			labelView.PreferredMaxLayoutWidth = labelView.Bounds.Size.Width;
 			labelView.Frame = new RectangleF(MARGIN_X,
-
 				bounds.Bottom - labelSize.Height - MARGIN_Y,
 				bounds.Right - CLOSE_BUTTON_WIDTH - 3 * MARGIN_X,
 				labelSize.Height);
@@ -179,9 +187,12 @@ namespace Rivets
 
 		void UpdateColors ()
 		{
-			var closeButtonImage = DrawCloseButtonImageWithColor(textColor);
+			var closeButtonImage = DrawCloseButtonImageWithColor(textColor ?? UIColor.White);
+
 
 			labelView.TextColor = textColor;
+			BackgroundColor = backgroundColor;
+
 			closeButton.SetBackgroundImage(closeButtonImage, UIControlState.Normal);
 		}
 
