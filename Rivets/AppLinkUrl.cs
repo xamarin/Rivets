@@ -42,7 +42,10 @@ namespace Rivets
 			var inputQueryParameters = System.Web.HttpUtility.ParseQueryString (url.Query);
 			NameValueCollectionToDictionary (inputQueryParameters, InputQueryParameters);
 
-			var appLinkData = InputQueryParameters ["ap_applink_data"];
+			var appLinkData = string.Empty;
+
+			if (InputQueryParameters.ContainsKey("al_applink_data"))
+				appLinkData = InputQueryParameters ["al_applink_data"];
 
 			if (!string.IsNullOrEmpty (appLinkData)) {
 				var json = System.Web.HttpUtility.UrlDecode (appLinkData);
@@ -68,11 +71,14 @@ namespace Rivets
 						TargetQueryParameters = InputQueryParameters;
 					}
 
-					var referrerData = InputQueryParameters ["referer_app_link"];
-					if (!string.IsNullOrEmpty (referrerData)) {
+					var refererData = string.Empty;
+					if (InputQueryParameters.ContainsKey("referer_app_link"))
+						refererData = InputQueryParameters ["referer_app_link"];
+
+					if (!string.IsNullOrEmpty (refererData)) {
 
 						try {
-							var jsonReferer = JObject.Parse (referrerData);
+							var jsonReferer = JObject.Parse (refererData);
 							var referrerUrl = new Uri(jsonReferer["url"].ToString());
 							var referrerAppName = jsonReferer["app_name"].ToString();
 							// According to specs, the app store id shouldn't get passed in the referrer
@@ -102,7 +108,7 @@ namespace Rivets
 			AppLinkData result = null;
 
 			try {
-				result = (AppLinkData)Newtonsoft.Json.JsonConvert.DeserializeObject(appLinkDataJson);
+				result = (AppLinkData)Newtonsoft.Json.JsonConvert.DeserializeObject<AppLinkData>(appLinkDataJson);
 			}catch (Exception ex) {
 				Debug.WriteLine (ex);
 			}
