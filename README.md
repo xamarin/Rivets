@@ -89,6 +89,8 @@ if (status == NavigationResult.App) {
 
 On iOS, when your app is launched by a URL, you will want to parse that URL to determine how to navigate to the deep link inside of your app.  You can use the `AppLinkUrl` class to help parse your links:
 
+Don't forget on iOS you need to register the Url Scheme(s) you want your app to listen for in your `Info.plist` file!
+
 ```csharp
 public virtual bool OpenUrl (UIApplication app, NSUrl url, string srcApp, NSObject annotation)
 var alUrl = new AppLinkUrl(url.ToString());
@@ -105,6 +107,40 @@ if (page == "/products") {
 }
 ```
 
+On Android, first of all, we need to register an ***IntentFilter*** for our app to be eligible to receive Intents from the url scheme we want to listen for.
+
+Then, in your Activity, you can parse the `Intent.Data` Uri using the `AppLinkUrl` class the same way we did in iOS:
+
+```csharp
+[Activity (Label = "Product")]			
+[IntentFilter(new [] {Android.Content.Intent.ActionView }, 
+	DataScheme="example", 
+	DataHost="*", 
+	Categories=new [] { Android.Content.Intent.CategoryDefault })]
+public class ProductActivity : Activity
+{
+	protected override void OnCreate (Bundle bundle)
+	{
+		base.OnCreate (bundle);
+
+		var id = string.Empty;
+
+		// First, check if we started the task with an extra from our own app
+		if (Intent.HasExtra ("PRODUCT_ID")) {
+			id = Intent.GetStringExtra ("PRODUCT_ID");
+		} else {
+		
+			// Parse our AppLinkUrl from the Intent Data Uri
+			var alUrl = new Rivets.AppLinkUrl (Intent.Data.ToString ());
+
+			if (alUrl != null && alUrl.InputQueryParameters.ContainsKey ("id"))
+				id = alUrl.InputQueryParameters ["id"];
+		}
+
+		Toast.MakeText (this, "Display Product Id: " + id, ToastLength.Short).Show ();
+	}
+}
+```
 
 ### Referrer Url's and going back to them
 
