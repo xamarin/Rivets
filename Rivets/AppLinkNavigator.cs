@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
-
+#if __IOS__
+using MonoTouch.UIKit;
+#endif
 
 #if __ANDROID__
 using Android.Content;
@@ -46,7 +48,54 @@ namespace Rivets
 		#elif __IOS__
 		public async Task<NavigationResult> Navigate (AppLink appLink, AppLinkData appLinkData)
 		{
+			try {
+				// Find the first eligible/launchable target in the BFAppLink.
+				IAppLinkTarget eligibleTarget = default(IAppLinkTarget);
+
+				foreach (var target in appLink.Targets) {
+					if (UIApplication.SharedApplication.CanOpenUrl(target.Url)) {
+						eligibleTarget = target;
+						break;
+					}
+				}
+
+				if (eligibleTarget != null) {
+					var appLinkUrl = BuildUrl(appLink, eligibleTarget.Url, appLinkData);
+					
+					// Attempt to navigate
+					if (UIApplication.SharedApplication.OpenUrl(appLinkUrl))
+						return NavigationResult.App;
+				}
+
+				// Fall back to opening the url in the browser if available.
+				if (appLink.WebUrl != null) {
+					var navigateUrl = BuildUrl(appLink, appLink.WebUrl, appLinkData);
+					
+					// Attempt to navigate
+					if (UIApplication.SharedApplication.OpenUrl(navigateUrl))
+						return NavigationResult.Web;		
+				}
+			}
+			catch (Exception ex) {
+				Console.WriteLine(ex);
+			}
+
+			// Otherwise, navigation fails.
 			return NavigationResult.Failed;
+		}
+
+		Uri BuildUrl(AppLink appLink, Uri targetUrl, AppLinkData appLinkData) 
+		{
+			appLinkData.TargetUrl = appLink.SourceUrl.ToString();
+
+			var json = Newtonsoft.Json.JsonConvert.SerializeObject (appLinkData);
+			
+			var builder = new UriBuilder (targetUrl);
+			var query = System.Web.HttpUtility.ParseQueryString (builder.Query);
+			query ["al_applink_data"] = json;
+			builder.Query = query.ToString ();
+			
+			return builder.Uri;
 		}
 		#elif __ANDROID__
 		public async Task<NavigationResult> Navigate (AppLink appLink, AppLinkData appLinkData)
