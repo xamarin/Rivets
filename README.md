@@ -114,6 +114,25 @@ For iOS, when you parse an incoming link, the `Referrer` property may have a val
 
 App Links recommends showing the "Touch to Return" banner at the top of the screen on iOS.
 
+![Sample Touch to Return Bar](UI-iOS-Sample.png)
+
+In Rivets, you can use the class `RefererViewBar` to help you display a Touch to Return banner in your app:
+
+```csharp
+
+public override void ViewDidLoad ()
+{
+	base.ViewDidLoad ();
+
+	refererViewBar = new Rivets.RefererViewBar (this);
+	refererViewBar.OnClosedRefererOverlay += () => InvokeOnMainThread (() => {
+
+		// Remove the Referer Overlay
+		refererViewBar.Remove ();
+	});
+}
+```
+
 
 ### HTTP Request Headers
 
