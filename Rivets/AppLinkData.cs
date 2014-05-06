@@ -22,7 +22,7 @@ namespace Rivets
 		public string UserAgent { get;set; }
 
 		[JsonProperty("extras")]
-		public JObject Extras { get;set; }
+		public JValue Extras { get;set; }
 	}
 }
 
