@@ -53,8 +53,7 @@
     <Compile Include="IAppLinkTarget.cs" />
     <Compile Include="NavigationResult.cs" />
     <Compile Include="AppLinkNavigator.cs" />
-    <Compile Include="ReturnToRefererView.cs" />
-    <Compile Include="ReturnToRefererViewController.cs" />
+    <Compile Include="RefererViewBar.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

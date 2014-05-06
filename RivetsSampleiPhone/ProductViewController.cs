@@ -25,7 +25,6 @@ namespace RivetsSampleiPhone
 			Initialize ();
 		}
 
-	
 		void Initialize()
 		{
 			Root = new RootElement ("View Product") {
@@ -38,7 +37,7 @@ namespace RivetsSampleiPhone
 		public string ProductId { get; private set; }
 		public Rivets.AppLink RefererAppLink { get; private set; }
 
-		Rivets.ReturnToRefererViewController returnToRefererController;
+		Rivets.RefererViewBar refererViewBar;
 
 		UIStatusBarStyle originalStatusBarStyle = UIApplication.SharedApplication.StatusBarStyle;
 
@@ -46,7 +45,15 @@ namespace RivetsSampleiPhone
 		{
 			base.ViewDidLoad ();
 
-			returnToRefererController = new Rivets.ReturnToRefererViewController (NavigationController);
+			refererViewBar = new Rivets.RefererViewBar (this);
+			refererViewBar.OnClosedRefererOverlay += () => InvokeOnMainThread (() => {
+
+				// Remove the Referer Overlay
+				refererViewBar.Remove ();
+
+				// Go back to our main root controller since the action was closed
+				NavigationController.PopViewControllerAnimated (true);
+			});
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -55,20 +62,20 @@ namespace RivetsSampleiPhone
 
 			if (RefererAppLink != null) {
 
+				// Make things prettier
 				UIApplication.SharedApplication.SetStatusBarStyle (UIStatusBarStyle.LightContent, true);
-				returnToRefererController.ShowViewForRefererAppLink (RefererAppLink);
+
+				// Display the Referer Overlay
+				refererViewBar.ShowRefererOverlay (RefererAppLink);
 			}
 		}
 
 		public override void ViewWillDisappear (bool animated)
 		{
+			// Return statusbar to oringal style
 			UIApplication.SharedApplication.SetStatusBarStyle (originalStatusBarStyle, true);
-			base.ViewWillDisappear (animated);
-		}
 
-		public override UIStatusBarStyle PreferredStatusBarStyle ()
-		{
-			return RefererAppLink != null ? UIStatusBarStyle.LightContent : UIStatusBarStyle.Default;
+			base.ViewWillDisappear (animated);
 		}
 	}
 }
