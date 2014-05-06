@@ -57,8 +57,6 @@ namespace RivetsSampleiPhone
 				navController.PopToRootViewController (true);
 				return true;
 			}
-
-			return false;
 		}
 	}
 }

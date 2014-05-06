@@ -15,6 +15,8 @@ namespace Rivets
 {
 	public class AppLinkNavigator : IAppLinkNavigation
 	{
+		const string KEY_APP_LINK_DATA = "al_applink_data";
+
 		public AppLinkNavigator ()
 		{
 		}
@@ -174,7 +176,7 @@ namespace Rivets
 				if (target.Class != null)
 					targetIntent.SetClassName (target.Package, target.Class);
 
-				targetIntent.PutExtra ("al_applink_data", Newtonsoft.Json.JsonConvert.SerializeObject(appLinkData));
+				targetIntent.PutExtra (KEY_APP_LINK_DATA, Newtonsoft.Json.JsonConvert.SerializeObject(appLinkData));
 
 				var resolved = pm.ResolveActivity (targetIntent, Android.Content.PM.PackageInfoFlags.MatchDefaultOnly);
 				if (resolved != null) {
@@ -200,7 +202,7 @@ namespace Rivets
 
 				var builder = new UriBuilder (appLink.WebUrl);
 				var query = System.Web.HttpUtility.ParseQueryString (builder.Query);
-				query ["al_applink_data"] = appLinkDataJson;
+				query [KEY_APP_LINK_DATA] = appLinkDataJson;
 				builder.Query = query.ToString ();
 				var webUrl = builder.ToString ();
 				Intent launchBrowserIntent = new Intent (Intent.ActionView, Android.Net.Uri.Parse(webUrl));
