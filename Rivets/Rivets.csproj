@@ -44,7 +44,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="System.Json.PCL\System.Json.PCL.csproj">
+    <ProjectReference Include="..\System.Json.PCL\System.Json.PCL.csproj">
       <Project>{72A84133-7517-4532-921B-FCF79553018D}</Project>
       <Name>System.Json.PCL</Name>
     </ProjectReference>

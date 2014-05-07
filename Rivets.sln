@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rivets.iOS", "Rivets\Rivets
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rivets.Net45", "Rivets\Rivets.Net45.csproj", "{B6AC84BE-9B3E-4330-ABD0-3FE97B45554E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Json.PCL", "Rivets\System.Json.PCL\System.Json.PCL.csproj", "{72A84133-7517-4532-921B-FCF79553018D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Json.PCL", "System.Json.PCL\System.Json.PCL.csproj", "{72A84133-7517-4532-921B-FCF79553018D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rivets.Tests", "Rivets.Tests\Rivets.Tests.csproj", "{001F82A1-CD75-424B-9288-6D29C78759A9}"
 EndProject

@@ -33,9 +33,6 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Web" />
     <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -51,7 +48,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="System.Json.PCL\System.Json.PCL.csproj">
+    <ProjectReference Include="..\System.Json.PCL\System.Json.PCL.csproj">
       <Project>{72A84133-7517-4532-921B-FCF79553018D}</Project>
       <Name>System.Json.PCL</Name>
     </ProjectReference>
