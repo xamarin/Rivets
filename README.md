@@ -1,8 +1,7 @@
 Rivets
 -----
 
-Rivets is a C# implementation of [App Links](http://applinks.org).  It's a functional  port of [Bolts](https://github.com/BoltsFramework/), the Java/Obj-C implementation.  Rivets is still in alpha and will be available on NuGet as a PCL when it is ready for its first release!
-
+Rivets is a C# implementation of [App Links](http://applinks.org).  It's functionally a port of [Bolts](https://github.com/BoltsFramework/), the Java/Obj-C implementation.  Rivets is still in alpha and will be available on NuGet as a PCL when it is ready for its first release!
 ### What is/are App Links?
 App Links are a new open source, cross-platform standard for helping link between Mobile and the Web (and vice-versa).
 
