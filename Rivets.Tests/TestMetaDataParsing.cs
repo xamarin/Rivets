@@ -92,6 +92,17 @@ namespace Rivets.Tests
 			Assert.IsNotNull (appLinks);
 			Assert.AreEqual (appLinks.Targets.Count, 4);
 		}
+
+		[Test]
+		public void WebFallbackMetaData ()
+		{
+			var resolver = new HttpClientAppLinkResolver ();
+			var appLinks = resolver.ResolveAppLinks (HOST_BASE + "WebFallbackMetaData.html").Result;
+
+			Assert.IsNotNull (appLinks);
+			Assert.AreEqual (appLinks.Targets.Count, 0);
+			Assert.IsNotNull (appLinks.WebUrl);
+		}
 	}
 }
 

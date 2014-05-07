@@ -41,6 +41,14 @@ namespace RivetsSampleiPhone
 						var result = await Rivets.AppLinks.Navigator.Navigate(url, referer);
 
 						Console.WriteLine(result);
+					}),
+
+					new StyledStringElement("Web Fallback Link", async () => {
+						var url = "https://rawgit.com/Redth/Rivets/master/Rivets.Tests/Html/WebFallbackMetaData.html";
+
+						var result = await Rivets.AppLinks.Navigator.Navigate(url);
+
+						Console.WriteLine(result);
 					})
 				},
 			};

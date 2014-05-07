@@ -71,6 +71,7 @@
     <None Include="Html\SimpleiPhoneMetaData.html" />
     <None Include="Html\SimpleiPadMetaData.html" />
     <None Include="Html\MultiTargetsMetaData.html" />
+    <None Include="Html\WebFallbackMetaData.html" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Html\" />
