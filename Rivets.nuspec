@@ -5,7 +5,7 @@
         <version>1.0.1.0</version>
         <title>Rivets</title>
         <authors>Jonathan Dick</authors>
-        <owners>Jonathan Dick</owners>
+        <owners>Xamarin Inc</owners>
         <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
         <projectUrl>https://github.com/Redth/Rivets</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -17,20 +17,34 @@ App Links are a defined set of metadata that can be advertised within html of we
 
 App Links are about the discovery of ways to link between Mobile and Web.</description>
         <summary>Rivets is a C# implementation of App Links. It's functionally a port of Bolts, the Java/Obj-C implementation.</summary>
-        <copyright>Jonathan Dick</copyright>
+        <copyright>2014 Xamarin Inc</copyright>
         <tags>xamarin, pcl, rivets, bolts, applinks, app links, applink, link, boltsframework, windows phone, winphone, wp8, winrt, android, ios, monoandroid, monodroid, monotouch</tags>
-        <dependencies>
-            <dependency id="Newtonsoft.Json" version="6.0.0" />
-        </dependencies>
     </metadata>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Net.Http" targetFramework=".NETFramework4.5" />
+      <frameworkAssembly assemblyName="System.Net.Http.WebRequest" targetFramework=".NETFramework4.5" />
+      
+      <frameworkAssembly assemblyName="System.Net.Http" targetFramework="MonoTouch0.0" />
+      <frameworkAssembly assemblyName="System.Json" targetFramework="MonoTouch0.0" />
+
+      <frameworkAssembly assemblyName="System.Net.Http" targetFramework="MonoAndroid0.0" />
+      <frameworkAssembly assemblyName="System.Json" targetFramework="MonoAndroid0.0" />
+    </frameworkAssemblies>
     <files>
         <file src="lib\monoandroid\Rivets.dll" target="lib\MonoAndroid10\Rivets.dll" />
         <file src="lib\monoandroid\Rivets.xml" target="lib\MonoAndroid10\Rivets.xml" />
+        
         <file src="lib\monotouch\Rivets.dll" target="lib\MonoTouch10\Rivets.dll" />
         <file src="lib\monotouch\Rivets.xml" target="lib\MonoTouch10\Rivets.xml" />
+        
         <file src="lib\net45\Rivets.dll" target="lib\net45\Rivets.dll" />
         <file src="lib\net45\Rivets.xml" target="lib\net45\Rivets.xml" />
+        <file src="lib\net45\System.Json.PCL.dll" target="lib\net45\System.Json.PCL.dll" />
+        <file src="lib\net45\System.Json.PCL.xml" target="lib\net45\System.Json.PCL.xml" />
+
         <file src="lib\portable-net45\Rivets.dll" target="lib\portable-net45+wp8+win8+MonoAndroid10+MonoTouch10\Rivets.dll" />
         <file src="lib\portable-net45\Rivets.xml" target="lib\portable-net45+wp8+win8+MonoAndroid10+MonoTouch10\Rivets.xml" />
+        <file src="lib\portable-net45\System.Json.PCL.dll" target="lib\portable-net45+wp8+win8+MonoAndroid10+MonoTouch10\System.Json.PCL.dll" />
+        <file src="lib\portable-net45\System.Json.PCL.xml" target="lib\portable-net45+wp8+win8+MonoAndroid10+MonoTouch10\System.Json.PCL.xml" />
     </files>
 </package>
