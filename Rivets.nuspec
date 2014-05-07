@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
-    <metadata minClientVersion="2.8.1">
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
         <id>Rivets</id>
         <version>1.0.1.0</version>
         <title>Rivets</title>
@@ -9,12 +9,14 @@
         <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
         <projectUrl>https://github.com/Redth/Rivets</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>App Links are a new open source, cross-platform standard for helping link between Mobile and the Web (and vice-versa).
+        <description>Rivets is a C# implementation of App Links. It's functionally a port of Bolts, the Java/Obj-C implementation.
+
+App Links are a new open source, cross-platform standard for helping link between Mobile and the Web (and vice-versa).
 
 App Links are a defined set of metadata that can be advertised within html of web pages that specify how to deep link to content inside of a Mobile app.
 
 App Links are about the discovery of ways to link between Mobile and Web.</description>
-        <summary>Rivets is a C# implementation of App Links. It's a functional port of Bolts, the Java/Obj-C implementation.</summary>
+        <summary>Rivets is a C# implementation of App Links. It's functionally a port of Bolts, the Java/Obj-C implementation.</summary>
         <copyright>Jonathan Dick</copyright>
         <tags>xamarin, pcl, rivets, bolts, applinks, app links, applink, link, boltsframework, windows phone, winphone, wp8, winrt, android, ios, monoandroid, monodroid, monotouch</tags>
         <dependencies>
