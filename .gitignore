@@ -10,3 +10,5 @@ obj
 Resource.designer.cs
 lib/
 packages/
+nupkg/
+NuGet.exe
