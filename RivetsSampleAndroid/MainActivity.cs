@@ -37,9 +37,15 @@ namespace RivetsSampleAndroid
 					intent.PutExtra("PRODUCT_ID", "widget");
 					StartActivity(intent);
 
-				} else {
+				} else if (item == "App Link to widget") {
 
 					var url = "https://rawgit.com/Redth/Rivets/master/Rivets.Tests/Html/SimpleAndroidMetaData.html";
+					var result = await Rivets.AppLinks.Navigator.Navigate(url);
+
+					Console.WriteLine(result);
+				} else {
+
+					var url = "https://rawgit.com/Redth/Rivets/master/Rivets.Tests/Html/WebFallbackMetaData.html";
 					var result = await Rivets.AppLinks.Navigator.Navigate(url);
 
 					Console.WriteLine(result);
@@ -56,6 +62,7 @@ namespace RivetsSampleAndroid
 		List<string> items = new List<string> {
 			"Product Details: widget",
 			"App Link to widget",
+			"Web Fallback Link"
 		};
 
 		public override long GetItemId (int position) { return position; }
