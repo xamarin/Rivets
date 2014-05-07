@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
 using System.Linq;
+using System.Json;
 
 #if __IOS__
 using MonoTouch.UIKit;
@@ -16,6 +16,7 @@ namespace Rivets
 	public class AppLinkNavigator : IAppLinkNavigation
 	{
 		const string KEY_APP_LINK_DATA = "al_applink_data";
+		const string KEY_REFERER_DATA = "referer_app_link";
 
 		public AppLinkNavigator ()
 		{
@@ -59,47 +60,47 @@ namespace Rivets
 			return await Navigate (url, null, refererAppLink);
 		}
 
-		public async Task<NavigationResult> Navigate (AppLink appLink, AppLinkData appLinkData)
+		public async Task<NavigationResult> Navigate (AppLink appLink, JsonObject extras)
 		{
-			return await Navigate (appLink, appLinkData, null);
+			return await Navigate (appLink, extras, null);
 		}
 
-		public async Task<NavigationResult> Navigate (Uri url, AppLinkData appLinkData)
+		public async Task<NavigationResult> Navigate (Uri url, JsonObject extras)
 		{
-			return await Navigate (url, appLinkData, null);
+			return await Navigate (url, extras, null);
 		}
 
-		public async Task<NavigationResult> Navigate (string url, AppLinkData appLinkData)
+		public async Task<NavigationResult> Navigate (string url, JsonObject extras)
 		{
-			return await Navigate (url, appLinkData, null);
+			return await Navigate (url, extras, null);
 		}
 		#endregion
 
 		#region Overloads that do implicit resolving of App Links
-		public async Task<NavigationResult> Navigate (Uri url, AppLinkData appLinkData, RefererAppLink refererAppLink)
+		public async Task<NavigationResult> Navigate (Uri url, JsonObject extras, RefererAppLink refererAppLink)
 		{
 			var appLink = await DefaultResolver.ResolveAppLinks (url);
 
 			if (appLink != null)
-				return await Navigate (appLink, appLinkData);
+				return await Navigate (appLink, extras, refererAppLink);
 
 			return NavigationResult.Failed;
 		}
 
-		public async Task<NavigationResult> Navigate (string url, AppLinkData appLinkData, RefererAppLink refererAppLink)
+		public async Task<NavigationResult> Navigate (string url, JsonObject extras, RefererAppLink refererAppLink)
 		{
 			var uri = new Uri (url);
-			return await Navigate(uri, appLinkData);
+			return await Navigate(uri, extras, refererAppLink);
 		}
 		#endregion
 
 		#if PORTABLE
-		public async Task<NavigationResult> Navigate (AppLink appLink, AppLinkData appLinkData, RefererAppLink refererAppLink)
+		public async Task<NavigationResult> Navigate (AppLink appLink, JsonObject extras, RefererAppLink refererAppLink)
 		{
 			throw new NotSupportedException ("You can't run this from the Portable Library.  Reference a platform Specific Library Instead");
 		}
 		#elif __IOS__
-		public async Task<NavigationResult> Navigate (AppLink appLink, AppLinkData appLinkData, RefererAppLink refererAppLink)
+		public async Task<NavigationResult> Navigate (AppLink appLink, JsonObject extras, RefererAppLink refererAppLink)
 		{
 			try {
 				// Find the first eligible/launchable target in the BFAppLink.
@@ -107,7 +108,7 @@ namespace Rivets
 					UIApplication.SharedApplication.CanOpenUrl(t.Url));
 
 				if (eligibleTarget != null) {
-					var appLinkUrl = BuildUrl(appLink, eligibleTarget.Url, appLinkData, refererAppLink);
+					var appLinkUrl = BuildUrl(appLink, eligibleTarget.Url, extras, refererAppLink);
 					
 					// Attempt to navigate
 					if (UIApplication.SharedApplication.OpenUrl(appLinkUrl))
@@ -116,7 +117,7 @@ namespace Rivets
 
 				// Fall back to opening the url in the browser if available.
 				if (appLink.WebUrl != null) {
-					var navigateUrl = BuildUrl(appLink, appLink.WebUrl, appLinkData, refererAppLink);
+					var navigateUrl = BuildUrl(appLink, appLink.WebUrl, extras, refererAppLink);
 					
 					// Attempt to navigate
 					if (UIApplication.SharedApplication.OpenUrl(navigateUrl))
@@ -131,41 +132,42 @@ namespace Rivets
 			return NavigationResult.Failed;
 		}
 
-		Uri BuildUrl(AppLink appLink, Uri targetUrl, AppLinkData appLinkData, RefererAppLink refererAppLink) 
+		Uri BuildUrl(AppLink appLink, Uri targetUrl, JsonObject extras, RefererAppLink refererAppLink) 
 		{
-			if (appLinkData == null)
-				appLinkData = new AppLinkData ();
-
-			appLinkData.TargetUrl = appLink.SourceUrl.ToString();
-
-			var json = Newtonsoft.Json.JsonConvert.SerializeObject (appLinkData);
-			
+			var appLinkDataJson = JsonSerializeAppLinkData (appLink, extras);
 			var builder = new UriBuilder (targetUrl);
 			var query = System.Web.HttpUtility.ParseQueryString (builder.Query);
-			query ["al_applink_data"] = System.Web.HttpUtility.UrlEncode(json);
+			query [KEY_APP_LINK_DATA] = appLinkDataJson;
 
-			if (refererAppLink != null)
-				query ["referer_app_link"] = System.Web.HttpUtility.UrlEncode(Newtonsoft.Json.JsonConvert.SerializeObject (refererAppLink));
+			if (refererAppLink != null) {
+
+				var refererAppLinkJson = JsonSerializeRefererAppLink (refererAppLink);
+
+				if (!string.IsNullOrEmpty (refererAppLinkJson))
+					query [KEY_REFERER_DATA] = refererAppLinkJson;
+			}
 
 			builder.Query = query.ToString ();
 			
 			return builder.Uri;
 		}
 		#elif __ANDROID__
-		public async Task<NavigationResult> Navigate (AppLink appLink, AppLinkData appLinkData, RefererAppLink refererAppLink)
+		public async Task<NavigationResult> Navigate (AppLink appLink, JsonObject extras, RefererAppLink refererAppLink)
 		{
 			var context = Android.App.Application.Context;
 			var pm = context.PackageManager;
 
+			var appLinkDataJson = JsonSerializeAppLinkData (appLink, extras);
+
 			Intent eligibleTargetIntent = null;
+
 			foreach (var t in appLink.Targets) {
 				var target = t as AndroidAppLinkTarget;
 
 				if (target == null)
 					continue;
 
-				Intent targetIntent = new Intent (Intent.ActionView);
-				//targetIntent.AddCategory (Android.Content.Intent.CategoryDefault);
+				var targetIntent = new Intent (Intent.ActionView);
 
 				if (target.Url != null)
 					targetIntent.SetData (Android.Net.Uri.Parse(target.Url.ToString()));
@@ -177,10 +179,6 @@ namespace Rivets
 				if (target.Class != null)
 					targetIntent.SetClassName (target.Package, target.Class);
 
-				var appLinkDataJson = string.Empty;
-				if (appLinkData != null)
-					appLinkDataJson = Newtonsoft.Json.JsonConvert.SerializeObject (appLinkData);
-
 				targetIntent.PutExtra (KEY_APP_LINK_DATA, appLinkDataJson);
 
 				var resolved = pm.ResolveActivity (targetIntent, Android.Content.PM.PackageInfoFlags.MatchDefaultOnly);
@@ -191,36 +189,34 @@ namespace Rivets
 			}
 
 			if (eligibleTargetIntent != null) {
+			
 				eligibleTargetIntent.AddFlags (ActivityFlags.NewTask);
 				context.StartActivity (eligibleTargetIntent);
+
 				return NavigationResult.App;
 			}
 
 			// Fall back to the web if it's available
 			if (appLink.WebUrl != null) {
-				var appLinkDataJson = string.Empty;
-				try {
-					appLinkDataJson = Newtonsoft.Json.JsonConvert.SerializeObject (appLinkData);
-				} catch (Exception e) {
-					Console.WriteLine (e);
-					return NavigationResult.Failed;
-				}
 
 				var builder = new UriBuilder (appLink.WebUrl);
 				var query = System.Web.HttpUtility.ParseQueryString (builder.Query);
 				query [KEY_APP_LINK_DATA] = appLinkDataJson;
 				builder.Query = query.ToString ();
+
 				var webUrl = builder.ToString ();
+
 				Intent launchBrowserIntent = new Intent (Intent.ActionView, Android.Net.Uri.Parse(webUrl));
 				launchBrowserIntent.AddFlags (ActivityFlags.NewTask);
 				context.StartActivity (launchBrowserIntent);
+
 				return NavigationResult.Web;
 			}
 
 			return NavigationResult.Failed;
 		}
 		#else
-		public async Task<NavigationResult> Navigate (AppLink appLink, AppLinkData appLinkData, RefererAppLink refererAppLink)
+		public async Task<NavigationResult> Navigate (AppLink appLink, JsonObject extras, RefererAppLink refererAppLink)
 		{
 			if (appLink.WebUrl != null) {
 				System.Diagnostics.Process.Start(appLink.WebUrl.ToString());
@@ -230,6 +226,32 @@ namespace Rivets
 			return NavigationResult.Failed;
 		}
 		#endif
+
+		string JsonSerializeAppLinkData(AppLink appLink, JsonObject extras)
+		{
+			var j = new JsonObject ();
+			j ["target_url"] = appLink.SourceUrl.ToString ();
+			j ["version"] = AppLinks.Version;
+			j ["user_agent"] = AppLinks.UserAgent;
+			j ["extras"] = extras;
+
+			return j.ToString ();
+		}
+
+		string JsonSerializeRefererAppLink(RefererAppLink refererAppLink)
+		{
+			var j = new JsonObject ();
+			if (refererAppLink.TargetUrl != null)
+				j ["target_url"] = refererAppLink.TargetUrl.ToString ();
+			if (!string.IsNullOrEmpty (refererAppLink.AppName))
+				j ["app_name"] = refererAppLink.AppName;
+			if (!string.IsNullOrEmpty (refererAppLink.AppStoreId))
+				j ["app_store_id"] = refererAppLink.AppStoreId;
+			if (refererAppLink.Url != null)
+				j ["url"] = refererAppLink.Url.ToString ();
+
+			return j.ToString ();
+		}
 	}	
 }
 

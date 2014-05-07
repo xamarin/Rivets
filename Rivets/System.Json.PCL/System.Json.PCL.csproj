@@ -4,10 +4,10 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <ProjectGuid>{432BB567-C11B-484B-BC05-6EFCD0AF036A}</ProjectGuid>
+    <ProjectGuid>{72A84133-7517-4532-921B-FCF79553018D}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Rivets</RootNamespace>
-    <AssemblyName>Rivets</AssemblyName>
+    <RootNamespace>System.Json.PCL</RootNamespace>
+    <AssemblyName>System.Json.PCL</AssemblyName>
     <TargetFrameworkProfile>Profile78</TargetFrameworkProfile>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
@@ -15,38 +15,30 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\lib\portable-net45</OutputPath>
-    <DefineConstants>DEBUG;PORTABLE</DefineConstants>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <DocumentationFile>..\lib\portable-net45\Rivets.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\lib\portable-net45</OutputPath>
+    <OutputPath>bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <DefineConstants>PORTABLE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IAppLinkResolver.cs" />
-    <Compile Include="HttpClientAppLinkResolver.cs" />
-    <Compile Include="IAppLinkNavigation.cs" />
-    <Compile Include="NavigationResult.cs" />
-    <Compile Include="IAppLinkTarget.cs" />
-    <Compile Include="AppLink.cs" />
-    <Compile Include="AppLinkUrl.cs" />
-    <Compile Include="AppLinkNavigator.cs" />
-    <Compile Include="AppLinks.cs" />
+    <Compile Include="JsonArray.cs" />
+    <Compile Include="JsonObject.cs" />
+    <Compile Include="JsonPrimitive.cs" />
+    <Compile Include="JsonType.cs" />
+    <Compile Include="JsonValue.cs" />
+    <Compile Include="JavaScriptReader.cs" />
+    <Compile Include="JavaScriptObjectDeserializer.cs" />
+    <Compile Include="DictionaryExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
-  <ItemGroup>
-    <ProjectReference Include="System.Json.PCL\System.Json.PCL.csproj">
-      <Project>{72A84133-7517-4532-921B-FCF79553018D}</Project>
-      <Name>System.Json.PCL</Name>
-    </ProjectReference>
-  </ItemGroup>
 </Project>

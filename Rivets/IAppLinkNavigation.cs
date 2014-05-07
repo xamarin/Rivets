@@ -1,13 +1,22 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Json;
 
 namespace Rivets
 {
 	public interface IAppLinkNavigation
 	{
 
+		/// <summary>
+		/// Navigates to the specified AppLink without first resolving AppLink MetaData from a page
+		/// </summary>
+		/// <param name="appLink">App Link.</param>
 		Task<NavigationResult> Navigate(AppLink appLink);
 
+		/// <summary>
+		/// Navigate the specified url.
+		/// </summary>
+		/// <param name="url">URL.</param>
 		Task<NavigationResult> Navigate(Uri url);
 
 		Task<NavigationResult> Navigate(string url);
@@ -18,17 +27,17 @@ namespace Rivets
 
 		Task<NavigationResult> Navigate(string url, RefererAppLink refererAppLink);
 
-		Task<NavigationResult> Navigate(AppLink appLink, AppLinkData appLinkData);
+		Task<NavigationResult> Navigate(AppLink appLink, JsonObject extras);
 
-		Task<NavigationResult> Navigate(Uri url, AppLinkData appLinkData);
+		Task<NavigationResult> Navigate(Uri url, JsonObject extras);
 
-		Task<NavigationResult> Navigate(string url, AppLinkData appLinkData);
+		Task<NavigationResult> Navigate(string url, JsonObject extras);
 
-		Task<NavigationResult> Navigate(AppLink appLink, AppLinkData appLinkData, RefererAppLink refererAppLink);
+		Task<NavigationResult> Navigate(AppLink appLink, JsonObject extras, RefererAppLink refererAppLink);
 
-		Task<NavigationResult> Navigate(Uri url, AppLinkData appLinkData, RefererAppLink refererAppLink);
+		Task<NavigationResult> Navigate(Uri url, JsonObject extras, RefererAppLink refererAppLink);
 
-		Task<NavigationResult> Navigate(string url, AppLinkData appLinkData, RefererAppLink refererAppLink);
+		Task<NavigationResult> Navigate(string url, JsonObject extras, RefererAppLink refererAppLink);
 	}
 }
 

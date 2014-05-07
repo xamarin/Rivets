@@ -2,35 +2,46 @@
 using System.Collections.Specialized;
 using System.IO;
 using System.Diagnostics;
-
-
-#if !PORTABLE
-using Newtonsoft.Json.Linq;
-#endif
 using System.Collections.Generic;
+using System.Json;
 
 namespace Rivets
 {
 	public class AppLinkUrl
 	{
+		public AppLinkUrl (Uri url, string apLinkDataJson)
+		{
+			Initialize (url, apLinkDataJson);
+		}
+
+		public AppLinkUrl(string url, string apLinkDataJson)
+		{
+			Initialize (new Uri (url), apLinkDataJson);
+		}
+
 		public AppLinkUrl (Uri url)
 		{
-			Initialize (url);
+			Initialize (url, null);
 		}
 
 		public AppLinkUrl(string url)
 		{
-			Initialize (new Uri (url));
+			Initialize (new Uri (url), null);
 		}
 
 		#if PORTABLE
-		void Initialize(Uri url)
+		void Initialize(Uri url, string appLinkDataJson)
 		{
 			throw new NotImplementedException ("Not Implemented in Portable Class Library.  Use a platform specific assembly instead.");
 		}
 		#else
-		void Initialize(Uri url)
+		void Initialize(Uri url, string appLinkDataJson)
 		{
+			#if __ANDROID__
+			if (string.IsNullOrEmpty(appLinkDataJson))
+				throw new ArgumentNullException("apLinkDataJson", "On Android you should pass the 'Intent.GetStringExtra(\"ap_applink_data\")' contents into the ctor");
+			#endif
+
 			InputUrl = url;
 			TargetUrl = url;
 
@@ -44,19 +55,39 @@ namespace Rivets
 
 			var appLinkData = string.Empty;
 
-			if (InputQueryParameters.ContainsKey("al_applink_data"))
-				appLinkData = InputQueryParameters ["al_applink_data"];
+			if (!string.IsNullOrEmpty (appLinkDataJson)) {
+				appLinkData = appLinkDataJson;
+			} else {
+				if (InputQueryParameters.ContainsKey ("al_applink_data"))
+					appLinkData = InputQueryParameters ["al_applink_data"];
+			}
 
 			if (!string.IsNullOrEmpty (appLinkData)) {
-				var json = System.Web.HttpUtility.UrlDecode (appLinkData);
 
-				AppLinkData = DeserializeAppLinkData (json);
+				JsonValue json = null;
 
-				if (AppLinkData != null) {
+				try {
+					json = JsonObject.Parse(appLinkData);
+				} catch (Exception ex) {
+					Debug.WriteLine (ex);
+				}
 
+				if (json != null) {
+
+					if (json.ContainsKey("version"))
+						AppLinksVersion = (string)json ["version"];
+
+					if (json.ContainsKey ("extras"))
+						Extras = json ["extras"] ?? new JsonObject();
+
+					if (json.ContainsKey ("user_agent"))
+						UserAgent = (string)json ["user_agent"];
+						
 					// Try to get the target url from the applink data
 					try { 
-						TargetUrl = new Uri(AppLinkData.TargetUrl); 
+
+						TargetUrl = new Uri((string)json["target_url"]);
+
 						if (!string.IsNullOrEmpty(TargetUrl.Query)) {
 							var newTargetQueryParameters = System.Web.HttpUtility.ParseQueryString(TargetUrl.Query);
 
@@ -78,9 +109,10 @@ namespace Rivets
 					if (!string.IsNullOrEmpty (refererData)) {
 
 						try {
-							var jsonReferer = JObject.Parse (refererData);
-							var referrerUrl = new Uri(jsonReferer["url"].ToString());
-							var referrerAppName = jsonReferer["app_name"].ToString();
+							var jsonReferer = JsonObject.Parse(refererData);
+
+							var referrerUrl = new Uri((string)jsonReferer["url"]);
+							var referrerAppName = (string)jsonReferer["app_name"];
 							// According to specs, the app store id shouldn't get passed in the referrer
 							//var referrerAppStoreId = jsonReferer["app_store_id"].ToString();
 
@@ -103,19 +135,6 @@ namespace Rivets
 
 		}
 
-		AppLinkData DeserializeAppLinkData(string appLinkDataJson)
-		{
-			AppLinkData result = null;
-
-			try {
-				result = Newtonsoft.Json.JsonConvert.DeserializeObject<AppLinkData>(appLinkDataJson);
-			}catch (Exception ex) {
-				Debug.WriteLine (ex);
-			}
-
-			return result;
-		}
-
 		void NameValueCollectionToDictionary(NameValueCollection query, Dictionary<string, string> dict)
 		{
 			foreach (var key in query.AllKeys) {
@@ -129,10 +148,12 @@ namespace Rivets
 
 		public Uri TargetUrl { get; private set; }
 		public Dictionary<string, string> TargetQueryParameters { get; private set; }
-		public AppLinkData AppLinkData { get; private set; }
 		public AppLink Referrer { get; private set; }
 		public Uri InputUrl { get; private set; }
 		public Dictionary<string, string> InputQueryParameters { get; private set; }
+		public string AppLinksVersion { get; private set; }
+		public string UserAgent { get; private set; }
+		public JsonValue Extras { get; private set; }
 	}
 }
 

@@ -56,10 +56,6 @@ namespace Rivets
 
 			baseView = new UIView (new RectangleF (0, 0, controller.View.Bounds.Width, BAR_HEIGHT + statusBarHeight));
 
-			var target = RefererLink.Targets.FirstOrDefault ();
-			if (target != null)
-				lblText = "Tap to return to " + (target.AppName ?? " previous app");
-
 			labelText = new UILabel (new RectangleF (0, statusBarHeight, baseView.Frame.Width - BUTTON_WIDTH, BAR_HEIGHT));
 			labelText.AutoresizingMask = UIViewAutoresizing.FlexibleWidth;
 			labelText.Font = UIFont.SystemFontOfSize (UIFont.SmallSystemFontSize);
@@ -155,8 +151,17 @@ namespace Rivets
 		{
 			RefererLink = refererLink;
 
-			if (RefererLink != null)
+			if (RefererLink != null) {
+				if (RefererLink.Targets == null) {
+					lblText = "Tap to return to previous app";
+				} else {
+					var target = RefererLink.Targets.FirstOrDefault ();
+					if (target != null)
+						lblText = "Tap to return to " + (target.AppName ?? " previous app");
+				}
+
 				Layout ();
+			}
 		}
 
 		void UpdateColors()

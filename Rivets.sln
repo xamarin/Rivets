@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rivets.iOS", "Rivets\Rivets
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rivets.Net45", "Rivets\Rivets.Net45.csproj", "{B6AC84BE-9B3E-4330-ABD0-3FE97B45554E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Json.PCL", "Rivets\System.Json.PCL\System.Json.PCL.csproj", "{72A84133-7517-4532-921B-FCF79553018D}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rivets.Tests", "Rivets.Tests\Rivets.Tests.csproj", "{001F82A1-CD75-424B-9288-6D29C78759A9}"
 EndProject
 Global
@@ -95,6 +97,22 @@ Global
 		{704A0BAA-3B8D-445F-BF00-ED709E8F1400}.Release|iPhone.Build.0 = Release|iPhone
 		{704A0BAA-3B8D-445F-BF00-ED709E8F1400}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
 		{704A0BAA-3B8D-445F-BF00-ED709E8F1400}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{72A84133-7517-4532-921B-FCF79553018D}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{72A84133-7517-4532-921B-FCF79553018D}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
+		{72A84133-7517-4532-921B-FCF79553018D}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{72A84133-7517-4532-921B-FCF79553018D}.AppStore|iPhone.Build.0 = Release|Any CPU
+		{72A84133-7517-4532-921B-FCF79553018D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72A84133-7517-4532-921B-FCF79553018D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72A84133-7517-4532-921B-FCF79553018D}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{72A84133-7517-4532-921B-FCF79553018D}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{72A84133-7517-4532-921B-FCF79553018D}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{72A84133-7517-4532-921B-FCF79553018D}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{72A84133-7517-4532-921B-FCF79553018D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72A84133-7517-4532-921B-FCF79553018D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72A84133-7517-4532-921B-FCF79553018D}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{72A84133-7517-4532-921B-FCF79553018D}.Release|iPhone.Build.0 = Release|Any CPU
+		{72A84133-7517-4532-921B-FCF79553018D}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{72A84133-7517-4532-921B-FCF79553018D}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{837A860E-6FF9-421A-9529-1E9069F5206E}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
 		{837A860E-6FF9-421A-9529-1E9069F5206E}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
 		{837A860E-6FF9-421A-9529-1E9069F5206E}.AppStore|iPhone.ActiveCfg = Release|Any CPU
@@ -151,8 +169,9 @@ Global
 		{5C5CC521-60F3-4021-88B5-A573EC569EA9} = {5FC243D4-7525-4DDE-9CBF-D5A0C4C7424D}
 		{C4F1CE5C-A13F-4361-BE64-D5336F5714A9} = {5FC243D4-7525-4DDE-9CBF-D5A0C4C7424D}
 		{B6AC84BE-9B3E-4330-ABD0-3FE97B45554E} = {5FC243D4-7525-4DDE-9CBF-D5A0C4C7424D}
+		{72A84133-7517-4532-921B-FCF79553018D} = {5FC243D4-7525-4DDE-9CBF-D5A0C4C7424D}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = RivetsSampleAndroid\RivetsSampleAndroid.csproj
+		StartupItem = RivetsSampleiPhone\RivetsSampleiPhone.csproj
 	EndGlobalSection
 EndGlobal

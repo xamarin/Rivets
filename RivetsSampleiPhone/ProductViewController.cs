@@ -45,15 +45,17 @@ namespace RivetsSampleiPhone
 		{
 			base.ViewDidLoad ();
 
-			refererViewBar = new Rivets.RefererViewBar (this);
-			refererViewBar.OnClosedRefererOverlay += () => InvokeOnMainThread (() => {
+			if (RefererAppLink != null) {
+				refererViewBar = new Rivets.RefererViewBar (this);
+				refererViewBar.OnClosedRefererOverlay += () => InvokeOnMainThread (() => {
 
-				// Remove the Referer Overlay
-				refererViewBar.Remove ();
+					// Remove the Referer Overlay
+					refererViewBar.Remove ();
 
-				// Go back to our main root controller since the action was closed
-				NavigationController.PopViewControllerAnimated (true);
-			});
+					// Go back to our main root controller since the action was closed
+					NavigationController.PopViewControllerAnimated (true);
+				});
+			}
 		}
 
 		public override void ViewWillAppear (bool animated)

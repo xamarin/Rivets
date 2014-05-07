@@ -1,6 +1,4 @@
 ﻿using System;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace Rivets
 {
@@ -12,17 +10,17 @@ namespace Rivets
 			UserAgent = AppLinks.UserAgent;
 		}
 
-		[JsonProperty("target_url")]
+		//target_url
 		public string TargetUrl { get;set; }
 
-		[JsonProperty("version")]
+		//version
 		public string Version { get;set; }
 
-		[JsonProperty("user_agent")]
+		//user_agent
 		public string UserAgent { get;set; }
 
-		[JsonProperty("extras")]
-		public JValue Extras { get;set; }
+		//extras
+		public System.Json.JsonValue Extras { get;set; }
 	}
 }
 
