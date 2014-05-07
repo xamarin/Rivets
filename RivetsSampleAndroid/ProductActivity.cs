@@ -28,8 +28,8 @@ namespace RivetsSampleAndroid
 			} else {
 				var alUrl = new Rivets.AppLinkUrl (Intent.Data.ToString ());
 
-				if (alUrl != null && alUrl.InputQueryParameters.ContainsKey ("id")) {
-					id = alUrl.InputQueryParameters ["id"];
+				if (alUrl != null && alUrl.TargetQueryParameters.ContainsKey ("id")) {
+					id = alUrl.TargetQueryParameters ["id"];
 				}
 			}
 
@@ -37,4 +37,3 @@ namespace RivetsSampleAndroid
 		}
 	}
 }
-
