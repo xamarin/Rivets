@@ -212,6 +212,7 @@ namespace Rivets
 				builder.Query = query.ToString ();
 				var webUrl = builder.ToString ();
 				Intent launchBrowserIntent = new Intent (Intent.ActionView, Android.Net.Uri.Parse(webUrl));
+				launchBrowserIntent.AddFlags (ActivityFlags.NewTask);
 				context.StartActivity (launchBrowserIntent);
 				return NavigationResult.Web;
 			}
