@@ -1,0 +1,20 @@
+version: 1.0.3
+name: Rivets
+id: rivets
+publisher: Xamarin
+no_build: true
+publisher-url: http://xamarin.com
+summary: "Rivets is a C# implementation of App Links. It's functionally a port of Bolts, the Java/Obj-C implementation."
+libraries:
+  android: 
+    - ../lib/monoandroid/Rivets.dll
+  ios:
+    - ../lib/monotouch/Rivets.dll
+samples:
+  - name: "RivetsSampleAndroid"
+    path: ../RivetsSampleAndroid/RivetsSampleAndroid.sln
+  - name: "RivetsSampleiPhone"
+    path: ../RivetsSampleiPhone/RivetsSampleiPhone.sln
+icons: 
+  - icons/rivets_128x128.png
+  - icons/rivets_512x512.png
