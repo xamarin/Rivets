@@ -203,7 +203,7 @@ namespace Rivets
                     if (wpTarget == null)
                         continue;
 
-                    var url = BuildUrl(appLink, eligibleTarget.Url, extras);
+                    var url = BuildUrl(appLink, wpTarget.Url, extras);
                     var launched = await Windows.System.Launcher.LaunchUriAsync(url);
 
                     if (launched)
