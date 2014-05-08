@@ -216,7 +216,7 @@ namespace Rivets
 			byte [] bytes = new byte[Enc.GetMaxByteCount(s.Length)];
 			int realLen = Enc.GetBytes (s, 0, s.Length, bytes, 0);
 
-			#if PORTABLE
+			#if PORTABLE || WINDOWS_PHONE
 			var strData = UrlEncodeToBytes (bytes, 0, realLen);
 			return Encoding.UTF8.GetString (strData, 0, strData.Length);
 			#else
