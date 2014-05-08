@@ -5,6 +5,7 @@ obj
 *.DS_Store
 *.pidb
 *.userprefs
+*.user
 *.dotSettings
 *.suo
 Resource.designer.cs
