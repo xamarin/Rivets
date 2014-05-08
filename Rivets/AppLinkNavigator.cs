@@ -131,26 +131,6 @@ namespace Rivets
 			// Otherwise, navigation fails.
 			return NavigationResult.Failed;
 		}
-
-		Uri BuildUrl(AppLink appLink, Uri targetUrl, JsonObject extras, RefererAppLink refererAppLink) 
-		{
-			var appLinkDataJson = JsonSerializeAppLinkData (appLink, extras);
-			var builder = new UriBuilder (targetUrl);
-			var query = System.Web.HttpUtility.ParseQueryString (builder.Query);
-			query [KEY_APP_LINK_DATA] = appLinkDataJson;
-
-			if (refererAppLink != null) {
-
-				var refererAppLinkJson = JsonSerializeRefererAppLink (refererAppLink);
-
-				if (!string.IsNullOrEmpty (refererAppLinkJson))
-					query [KEY_REFERER_DATA] = refererAppLinkJson;
-			}
-
-			builder.Query = query.ToString ();
-			
-			return builder.Uri;
-		}
 		#elif __ANDROID__
 		public async Task<NavigationResult> Navigate (AppLink appLink, JsonObject extras, RefererAppLink refererAppLink)
 		{
@@ -199,14 +179,9 @@ namespace Rivets
 			// Fall back to the web if it's available
 			if (appLink.WebUrl != null) {
 
-				var builder = new UriBuilder (appLink.WebUrl);
-				var query = System.Web.HttpUtility.ParseQueryString (builder.Query);
-				query [KEY_APP_LINK_DATA] = appLinkDataJson;
-				builder.Query = query.ToString ();
+                var webUrl = BuildUrl(appLink, appLink.WebUrl, extras);
 
-				var webUrl = builder.ToString ();
-
-				Intent launchBrowserIntent = new Intent (Intent.ActionView, Android.Net.Uri.Parse(webUrl));
+				Intent launchBrowserIntent = new Intent (Intent.ActionView, Android.Net.Uri.Parse(webUrl.ToString()));
 				launchBrowserIntent.AddFlags (ActivityFlags.NewTask);
 				context.StartActivity (launchBrowserIntent);
 
@@ -215,7 +190,45 @@ namespace Rivets
 
 			return NavigationResult.Failed;
 		}
-		#else
+        #elif WINDOWS_PHONE
+        public async Task<NavigationResult> Navigate(AppLink appLink, JsonObject extras, RefererAppLink refererAppLink)
+        {
+            try
+            {
+                // Find the first eligible/launchable target in the BFAppLink.
+                foreach (var target in appLink.Targets)
+                {
+                    var wpTarget = target as WindowsPhoneAppLinkTarget;
+
+                    if (wpTarget == null)
+                        continue;
+
+                    var url = BuildUrl(appLink, eligibleTarget.Url, extras);
+                    var launched = await Windows.System.Launcher.LaunchUriAsync(url);
+
+                    if (launched)
+                        return NavigationResult.App;
+                }
+
+                // Fall back to opening the url in the browser if available.
+                if (appLink.WebUrl != null)
+                {
+                    var navigateUrl = BuildUrl(appLink, appLink.WebUrl, extras);
+                    var launched = await Windows.System.Launcher.LaunchUriAsync(navigateUrl);
+
+                    if (launched)
+                        return NavigationResult.Web;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+
+            // Otherwise, navigation fails.
+            return NavigationResult.Failed;
+        }
+        #else
 		public async Task<NavigationResult> Navigate (AppLink appLink, JsonObject extras, RefererAppLink refererAppLink)
 		{
 			if (appLink.WebUrl != null) {
@@ -226,6 +239,27 @@ namespace Rivets
 			return NavigationResult.Failed;
 		}
 		#endif
+
+        Uri BuildUrl(AppLink appLink, Uri targetUrl, JsonObject extras, RefererAppLink refererAppLink = null)
+        {
+            var appLinkDataJson = JsonSerializeAppLinkData(appLink, extras);
+            var builder = new UriBuilder(targetUrl);
+			var query = Utility.ParseQueryString(builder.Query);
+            query[KEY_APP_LINK_DATA] = appLinkDataJson;
+
+            if (refererAppLink != null)
+            {
+
+                var refererAppLinkJson = JsonSerializeRefererAppLink(refererAppLink);
+
+                if (!string.IsNullOrEmpty(refererAppLinkJson))
+                    query[KEY_REFERER_DATA] = refererAppLinkJson;
+            }
+
+            builder.Query = query.ToString();
+
+            return builder.Uri;
+        }
 
 		string JsonSerializeAppLinkData(AppLink appLink, JsonObject extras)
 		{

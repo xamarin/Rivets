@@ -45,13 +45,8 @@ namespace Rivets
 			InputUrl = url;
 			TargetUrl = url;
 
-			var targetQueryParameters = System.Web.HttpUtility.ParseQueryString (url.Query);
-			TargetQueryParameters = new Dictionary<string, string> ();
-			NameValueCollectionToDictionary (targetQueryParameters, TargetQueryParameters);
-
-			InputQueryParameters = new Dictionary<string, string> ();
-			var inputQueryParameters = System.Web.HttpUtility.ParseQueryString (url.Query);
-			NameValueCollectionToDictionary (inputQueryParameters, InputQueryParameters);
+			TargetQueryParameters = Utility.ParseQueryString(url.Query);
+			InputQueryParameters = Utility.ParseQueryString(url.Query);
 
 			var appLinkData = string.Empty;
 
@@ -85,17 +80,8 @@ namespace Rivets
 						
 					// Try to get the target url from the applink data
 					try { 
-
 						TargetUrl = new Uri((string)json["target_url"]);
-
-						if (!string.IsNullOrEmpty(TargetUrl.Query)) {
-							var newTargetQueryParameters = System.Web.HttpUtility.ParseQueryString(TargetUrl.Query);
-
-							if (newTargetQueryParameters != null && newTargetQueryParameters.Count > 0) {
-								TargetQueryParameters = new Dictionary<string, string>();
-								NameValueCollectionToDictionary(newTargetQueryParameters, TargetQueryParameters);
-							}
-						}
+						TargetQueryParameters = Utility.ParseQueryString(TargetUrl.Query);
 					}
 					catch { 
 						TargetUrl = url; 
@@ -133,16 +119,6 @@ namespace Rivets
 				}
 			}
 
-		}
-
-		void NameValueCollectionToDictionary(NameValueCollection query, Dictionary<string, string> dict)
-		{
-			foreach (var key in query.AllKeys) {
-				if (dict.ContainsKey (key))
-					dict [key] = query [key];
-				else
-					dict.Add (key, query [key]);
-			}
 		}
 		#endif
 
