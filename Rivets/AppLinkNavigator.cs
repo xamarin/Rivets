@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Linq;
 using System.Json;
+using System.Text;
 
 #if __IOS__
 using MonoTouch.UIKit;
@@ -256,7 +257,17 @@ namespace Rivets
                     query[KEY_REFERER_DATA] = refererAppLinkJson;
             }
 
-            builder.Query = query.ToString();
+            var querystr = new StringBuilder();
+            
+            foreach (var key in query.Keys)
+            {
+                querystr.Append(Utility.UrlEncode(key));
+                querystr.Append("=");
+                querystr.Append(Utility.UrlEncode(query[key]));
+                querystr.Append("&");
+            }
+
+            builder.Query = querystr.ToString().TrimEnd('&');
 
             return builder.Uri;
         }
