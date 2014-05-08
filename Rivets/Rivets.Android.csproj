@@ -36,6 +36,10 @@
     <ConsolePause>false</ConsolePause>
     <DefineConstants>__ANDROID__</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup>
+    <BaseIntermediateOutputPath>obj\monoandroid\</BaseIntermediateOutputPath>
+    <IntermediateOutputPath>$(BaseIntermediateOutputPath)$(Configuration)\</IntermediateOutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
