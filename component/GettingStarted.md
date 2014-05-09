@@ -64,7 +64,7 @@ Most platforms have a concept of being able to receive incoming information from
 
 To register your app to handle a URL scheme on iOS, you would need to add the following to your `Info.plist` file:
 
-![Info.plist Example](iOSInfoPList.png)
+![Info.plist Example](https://raw.githubusercontent.com/Redth/Rivets/master/component/iOSInfoPlist.png)
 
 To register your app to handle a URL scheme on Windows phone, you would add the following to your `WPManifest.xml` file (after the closing Tokens tag, and before the opening ScreenResolutions tag):
 

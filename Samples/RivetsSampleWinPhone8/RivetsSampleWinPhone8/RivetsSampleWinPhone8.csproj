@@ -156,11 +156,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Rivets\Rivets.WinPhone8.csproj">
+    <ProjectReference Include="..\..\..\Rivets\Rivets.WinPhone8.csproj">
       <Project>{ea5a23d6-8c62-451a-8f53-2740d6d99822}</Project>
       <Name>Rivets.WinPhone8</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\System.Json.PCL\System.Json.PCL.csproj">
+    <ProjectReference Include="..\..\..\System.Json.PCL\System.Json.PCL.csproj">
       <Project>{72a84133-7517-4532-921b-fcf79553018d}</Project>
       <Name>System.Json.PCL</Name>
     </ProjectReference>

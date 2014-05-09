@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 VisualStudioVersion = 12.0.30324.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rivets.Android", "..\Rivets\Rivets.Android.csproj", "{5C5CC521-60F3-4021-88B5-A573EC569EA9}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RivetsSampleAndroid", "RivetsSampleAndroid\RivetsSampleAndroid.csproj", "{837A860E-6FF9-421A-9529-1E9069F5206E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rivets.Android", "..\..\Rivets\Rivets.Android.csproj", "{5C5CC521-60F3-4021-88B5-A573EC569EA9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -18,11 +18,11 @@ libraries:
     - ../lib/wp8/System.Net.Http.Primitives.dll
 samples:
   - name: "RivetsSampleAndroid"
-    path: ../Samples/RivetsSampleAndroid.sln
+    path: ../Samples/RivetsSampleAndroid/RivetsSampleAndroid.sln
   - name: "RivetsSampleiPhone"
-    path: ../Samples/RivetsSampleiPhone.sln
+    path: ../Samples/RivetsSampleiPhone/RivetsSampleiPhone.sln
   - name: "RivetsSampleWinPhone8"
-    path: ../Samples/RivetsSampleWinPhone8.sln
+    path: ../Samples/RivetsSampleWinPhone8/RivetsSampleWinPhone8.sln
 icons: 
   - icons/rivets_128x128.png
   - icons/rivets_512x512.png
