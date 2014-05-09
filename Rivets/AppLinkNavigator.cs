@@ -30,6 +30,8 @@ namespace Rivets
 
 		public static IAppLinkResolver DefaultResolver { get; set; }
 
+		public event WillNavigateToWebUrlDelegate WillNavigateToWebUrl;
+
 		#region Overloads
 		public async Task<NavigationResult> Navigate(AppLink appLink)
 		{
@@ -119,7 +121,12 @@ namespace Rivets
 				// Fall back to opening the url in the browser if available.
 				if (appLink.WebUrl != null) {
 					var navigateUrl = BuildUrl(appLink, appLink.WebUrl, extras, refererAppLink);
-					
+
+					var handled = RaiseWillNavigateToWebUrl(navigateUrl);
+
+					if (handled)
+						return NavigationResult.Web;
+
 					// Attempt to navigate
 					if (UIApplication.SharedApplication.OpenUrl(navigateUrl))
 						return NavigationResult.Web;		
@@ -182,9 +189,13 @@ namespace Rivets
 
                 var webUrl = BuildUrl(appLink, appLink.WebUrl, extras);
 
-				Intent launchBrowserIntent = new Intent (Intent.ActionView, Android.Net.Uri.Parse(webUrl.ToString()));
-				launchBrowserIntent.AddFlags (ActivityFlags.NewTask);
-				context.StartActivity (launchBrowserIntent);
+				var handled = RaiseWillNavigateToWebUrl (webUrl);
+
+				if (!handled) {
+					Intent launchBrowserIntent = new Intent (Intent.ActionView, Android.Net.Uri.Parse (webUrl.ToString ()));
+					launchBrowserIntent.AddFlags (ActivityFlags.NewTask);
+					context.StartActivity (launchBrowserIntent);
+				}
 
 				return NavigationResult.Web;
 			}
@@ -215,6 +226,11 @@ namespace Rivets
                 if (appLink.WebUrl != null)
                 {
                     var navigateUrl = BuildUrl(appLink, appLink.WebUrl, extras);
+
+					var handled = RaiseWillNavigateToWebUrl(navigateUrl);
+					if (handled)
+						return NavigationResult.Web
+
                     var launched = await Windows.System.Launcher.LaunchUriAsync(navigateUrl);
 
                     if (launched)
@@ -233,13 +249,33 @@ namespace Rivets
 		public async Task<NavigationResult> Navigate (AppLink appLink, JsonObject extras, RefererAppLink refererAppLink)
 		{
 			if (appLink.WebUrl != null) {
-				System.Diagnostics.Process.Start(appLink.WebUrl.ToString());
+				
+				var navigateUrl = BuildUrl(appLink, appLink.WebUrl, extras);
+
+				var handled = RaiseWillNavigateToWebUrl(navigateUrl);
+				if (handled)
+					return NavigationResult.Web
+				
+				System.Diagnostics.Process.Start(navigateUrl.ToString());
 				return NavigationResult.Web;
 			}
 			
 			return NavigationResult.Failed;
 		}
 		#endif
+
+		bool RaiseWillNavigateToWebUrl(Uri webUrl)
+		{
+			var evt = WillNavigateToWebUrl;
+			if (evt != null) {
+				var eventArgs = new WebNavigateEventArgs (webUrl);
+				WillNavigateToWebUrl (this, eventArgs);
+
+				return eventArgs.Handled;
+			}
+
+			return false;
+		}
 
         Uri BuildUrl(AppLink appLink, Uri targetUrl, JsonObject extras, RefererAppLink refererAppLink = null)
         {

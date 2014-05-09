@@ -38,6 +38,22 @@ namespace Rivets
 		Task<NavigationResult> Navigate(Uri url, JsonObject extras, RefererAppLink refererAppLink);
 
 		Task<NavigationResult> Navigate(string url, JsonObject extras, RefererAppLink refererAppLink);
+
+		event WillNavigateToWebUrlDelegate WillNavigateToWebUrl;
+	}
+
+	public delegate void WillNavigateToWebUrlDelegate(object sender, WebNavigateEventArgs e);
+
+	public class WebNavigateEventArgs
+	{
+		public WebNavigateEventArgs(Uri webUrl)
+		{
+			Handled = false;
+			WebUrl = webUrl;
+		}
+
+		public Uri WebUrl { get; private set; }
+		public bool Handled { get; set; }
 	}
 }
 
