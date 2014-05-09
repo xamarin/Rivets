@@ -64,10 +64,4 @@
     <AndroidResource Include="Resources\layout\ProductLayout.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
-  <ItemGroup>
-    <ProjectReference Include="..\Rivets\Rivets.Android.csproj">
-      <Project>{5C5CC521-60F3-4021-88B5-A573EC569EA9}</Project>
-      <Name>Rivets.Android</Name>
-    </ProjectReference>
-  </ItemGroup>
 </Project>

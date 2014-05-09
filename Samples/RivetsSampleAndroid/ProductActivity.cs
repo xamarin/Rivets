@@ -40,8 +40,8 @@ namespace RivetsSampleAndroid
 				// and if so, Parse the url from the Intent Data
 				var alUrl = new Rivets.AppLinkUrl (Intent.Data.ToString (), appLinkData);
 
-				// TargetQueryParameters will contain our product id
-				if (alUrl != null && alUrl.TargetQueryParameters.ContainsKey ("id")) {
+				// InputQueryParameters will contain our product id
+				if (alUrl != null && alUrl.InputQueryParameters.ContainsKey ("id")) {
 					id = alUrl.TargetQueryParameters ["id"];
 				}
 			}

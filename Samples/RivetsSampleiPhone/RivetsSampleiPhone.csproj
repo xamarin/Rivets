@@ -105,10 +105,4 @@
     <Compile Include="ProductViewController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
-  <ItemGroup>
-    <ProjectReference Include="..\Rivets\Rivets.iOS.csproj">
-      <Project>{C4F1CE5C-A13F-4361-BE64-D5336F5714A9}</Project>
-      <Name>Rivets.iOS</Name>
-    </ProjectReference>
-  </ItemGroup>
 </Project>

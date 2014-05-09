@@ -10,11 +10,19 @@ libraries:
     - ../lib/monoandroid/Rivets.dll
   ios:
     - ../lib/monotouch/Rivets.dll
+  wp8:
+    - ../lib/wp8/Rivets.dll
+    - ../lib/wp8/System.Json.PCL.dll
+    - ../lib/wp8/System.Net.Http.dll
+    - ../lib/wp8/System.Net.Http.Extensions.dll
+    - ../lib/wp8/System.Net.Http.Primitives.dll
 samples:
   - name: "RivetsSampleAndroid"
-    path: ../RivetsSampleAndroid/RivetsSampleAndroid.sln
+    path: ../Samples/RivetsSampleAndroid.sln
   - name: "RivetsSampleiPhone"
-    path: ../RivetsSampleiPhone/RivetsSampleiPhone.sln
+    path: ../Samples/RivetsSampleiPhone.sln
+  - name: "RivetsSampleWinPhone8"
+    path: ../Samples/RivetsSampleWinPhone8.sln
 icons: 
   - icons/rivets_128x128.png
   - icons/rivets_512x512.png
