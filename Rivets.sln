@@ -432,7 +432,7 @@ Global
 		{EA5A23D6-8C62-451A-8F53-2740D6D99822} = {5FC243D4-7525-4DDE-9CBF-D5A0C4C7424D}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Rivets\Rivets.csproj
+		StartupItem = Samples\RivetsSampleAndroid\RivetsSampleAndroid\RivetsSampleAndroid.csproj
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

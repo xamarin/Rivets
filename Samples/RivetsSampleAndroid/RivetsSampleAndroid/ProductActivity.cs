@@ -42,7 +42,7 @@ namespace RivetsSampleAndroid
 
 				// InputQueryParameters will contain our product id
 				if (alUrl != null && alUrl.InputQueryParameters.ContainsKey ("id")) {
-					id = alUrl.TargetQueryParameters ["id"];
+					id = alUrl.InputQueryParameters ["id"];
 				}
 			}
 
