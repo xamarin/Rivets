@@ -254,7 +254,7 @@ namespace Rivets
 
 				var handled = RaiseWillNavigateToWebUrl(navigateUrl);
 				if (handled)
-					return NavigationResult.Web
+					return NavigationResult.Web;
 				
 				System.Diagnostics.Process.Start(navigateUrl.ToString());
 				return NavigationResult.Web;
