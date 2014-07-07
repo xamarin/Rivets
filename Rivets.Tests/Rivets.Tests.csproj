@@ -76,8 +76,8 @@
   <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Html\SimpleAndroidMetaData.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Html\SimpleWindowsPhoneMetaData.html" />
+    <EmbeddedResource Include="Html\SimpleWindowsPhoneMetaData.html" />
+    <EmbeddedResource Include="Html\SimpleWindowsUniversalMetaData.html" />
+    <EmbeddedResource Include="Html\SimpleWindowsMetaData.html" />
   </ItemGroup>
 </Project>

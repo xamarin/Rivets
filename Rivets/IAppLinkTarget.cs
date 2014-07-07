@@ -17,11 +17,19 @@ namespace Rivets
 		public string Package { get;set; }
 	}
 
-	public class WindowsPhoneAppLinkTarget : IAppLinkTarget
+	public class WindowsAppLinkTarget : IAppLinkTarget
 	{
 		public Uri Url { get;set; }
 		public string AppName { get;set; }
 		public string AppId { get;set; }
+	}
+
+	public class WindowsPhoneAppLinkTarget : WindowsAppLinkTarget
+	{
+	}
+
+	public class WindowsUniversalAppLinkTarget : WindowsAppLinkTarget
+	{
 	}
 
 	public class IOSAppLinkTarget : IAppLinkTarget
