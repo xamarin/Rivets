@@ -199,7 +199,7 @@ namespace Rivets
 						target.AppId = m != null ? m.Content : null;
 					}
 					if (appNames != null) {
-						var m = appIds.ElementAtOrDefault (i);
+						var m = appNames.ElementAtOrDefault (i);
 						target.AppName = m != null ? m.Content : null;
 					}
 
