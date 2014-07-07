@@ -187,4 +187,22 @@ class MyAppLinkUriMapper : UriMapperBase
 NOTE: You'll need to set your `RootFrame.UriMapper = new MyAppLinkUriMapper();` in your App's initialization.
 
 
+## Using Facebook's Index to Resolve AppLinks
+To help with the adoption and lower the overhead required to parse AppLinks, Facebook has created their own public index.  Instead of you fetching the HTML content of a page and parsing the AppLink metadata yourself (on a mobile device), you can query the Facebook Index instead. 
+
+When you send a request to the Facebook Index, it will first check its cache to see if it has been asked about this content before, and if so, it will quickly returned cached results to you.  If it has nothing in its cache, it will go out and parse the HTML for you and return any results it finds.
+
+There are a couple advantages to using Facebook Index to resolve AppLinks:
+
+1. Speed: Cached results are returned VERY quickly, and even if there are no cached results, Facebook has much better peering to data centers around the world than your user's mobile device, plus downloading and parsing HTML on the server side is going to be a lot quicker than a mobile device.
+2. Lower bandwidth: Facebook returns its results as JSON and therefore the bandwidth usage is much lower than downloading entire HTML pages and parsing them on a mobile device.
+
+You can use the Facebook resolver simply by setting it to be the default app link resolver:
+
+```csharp
+AppLinks.DefaultResolver = new FacebookIndexAppLinkResolver ("YOUR-FB-APP-ID", "YOUR-FB-APP-TOKEN");
+```
+
+NOTE: To use the Facebook Index you must provide an **App ID** and **App Client Token**.  You can get these by signing up at the Facebook Developer's site, and creating an Application.  The App ID will be listed on your Facebook Application's Dashboard.  The Client Token comes from the Settings -> Advanced page, under Security (Client Token).
+
 
