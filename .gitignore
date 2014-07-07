@@ -13,3 +13,4 @@ lib/
 packages/
 nupkg/
 NuGet.exe
+app.config
