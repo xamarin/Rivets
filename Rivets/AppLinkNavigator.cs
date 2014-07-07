@@ -22,13 +22,6 @@ namespace Rivets
 		public AppLinkNavigator ()
 		{
 		}
-			
-		static AppLinkNavigator()
-		{
-			DefaultResolver = new HttpClientAppLinkResolver ();
-		}
-
-		public static IAppLinkResolver DefaultResolver { get; set; }
 
 		public event WillNavigateToWebUrlDelegate WillNavigateToWebUrl;
 
@@ -82,7 +75,7 @@ namespace Rivets
 		#region Overloads that do implicit resolving of App Links
 		public async Task<NavigationResult> Navigate (Uri url, JsonObject extras, RefererAppLink refererAppLink)
 		{
-			var appLink = await DefaultResolver.ResolveAppLinks (url);
+			var appLink = await AppLinks.DefaultResolver.ResolveAppLinks (url);
 
 			if (appLink != null)
 				return await Navigate (appLink, extras, refererAppLink);
