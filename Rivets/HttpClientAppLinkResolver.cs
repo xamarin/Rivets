@@ -11,7 +11,7 @@ namespace Rivets
 {
 	public class HttpClientAppLinkResolver : IAppLinkResolver
 	{
-		const string META_TAG_REGEX = @"<\s{0,}meta\s{0,}((property\s{0,}=\s{0,}('|"")(?<property>[^\""\']{1,})('|"")\s{1,1})|(content\s{0,}=('|"")(?<content>[^\""\']{0,})('|"")\s{1,})){1,2}\s{0,}/{0,1}>";
+		const string META_TAG_REGEX = @"<\s{0,}meta((\s{1,})((property\s{0,}=\s{0,}('|"")(?<property>[^\""\']{1,})('|""))|(content\s{0,}=('|"")(?<content>[^\""\']{0,})('|"")))){1,2}\s{0,}/{0,1}>";
 
 		const string META_TAG_PREFIX = "al";
 		const string KEY_AL_VALUE = "value";
@@ -25,7 +25,9 @@ namespace Rivets
 		const string KEY_IOS = "ios";
 		const string KEY_IPHONE = "iphone";
 		const string KEY_IPAD = "ipad";
+		const string KEY_WINDOWS = "windows";
 		const string KEY_WINDOWSPHONE = "windows_phone";
+		const string KEY_WINDOWSUNIVERSAL = "windows_universal";
 
 		const string KEY_ANDROID_PACKAGE = "al:android:package";
 		const string KEY_ANDROID_CLASS = "al:android:class";
@@ -78,6 +80,12 @@ namespace Rivets
 
 			// Windows Phone
 			AddWindowsTargets (metadata, KEY_WINDOWSPHONE, targets);
+
+			// Windows Universal
+			AddWindowsTargets (metadata, KEY_WINDOWSUNIVERSAL, targets);
+
+			// Windows
+			AddWindowsTargets (metadata, KEY_WINDOWS, targets);
 
 
 			var shouldFallback = true; //Default is true in AppLinks spec
@@ -186,7 +194,12 @@ namespace Rivets
 			if (urls != null) {
 				for (int i = 0; i < urls.Count(); i++) {
 
-					var target = new WindowsPhoneAppLinkTarget ();
+					var target = new WindowsAppLinkTarget ();
+
+					if (platform == KEY_WINDOWSUNIVERSAL)
+						target = new WindowsUniversalAppLinkTarget ();
+					else if (platform == KEY_WINDOWSPHONE)
+						target = new WindowsPhoneAppLinkTarget ();
 
 					try {
 						target.Url = new Uri(urls.ElementAt(i).Content);
@@ -199,7 +212,7 @@ namespace Rivets
 						target.AppId = m != null ? m.Content : null;
 					}
 					if (appNames != null) {
-						var m = appIds.ElementAtOrDefault (i);
+						var m = appNames.ElementAtOrDefault (i);
 						target.AppName = m != null ? m.Content : null;
 					}
 

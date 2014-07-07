@@ -51,9 +51,11 @@
     <Reference Include="Microsoft.Owin.StaticFiles">
       <HintPath>..\packages\Microsoft.Owin.StaticFiles.2.1.0\lib\net45\Microsoft.Owin.StaticFiles.dll</HintPath>
     </Reference>
+    <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TestMetaDataParsing.cs" />
+    <Compile Include="FacebookResolverTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -69,12 +71,13 @@
     <None Include="Html\SimpleiPadMetaData.html" />
     <None Include="Html\MultiTargetsMetaData.html" />
     <None Include="Html\WebFallbackMetaData.html" />
+    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Html\SimpleAndroidMetaData.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Html\SimpleWindowsPhoneMetaData.html" />
+    <EmbeddedResource Include="Html\SimpleWindowsPhoneMetaData.html" />
+    <EmbeddedResource Include="Html\SimpleWindowsUniversalMetaData.html" />
+    <EmbeddedResource Include="Html\SimpleWindowsMetaData.html" />
   </ItemGroup>
 </Project>

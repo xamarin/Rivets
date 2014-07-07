@@ -84,6 +84,54 @@ namespace Rivets.Tests
 		}
 
 		[Test]
+		public void SimpleWindowsMetaDataTest ()
+		{
+			var resolver = new HttpClientAppLinkResolver ();
+			var appLinks = resolver.ResolveAppLinks (HOST_BASE + "SimpleWindowsMetaData.html").Result;
+
+			Assert.IsNotNull (appLinks);
+			Assert.Greater (appLinks.Targets.Count, 0);
+
+			Assert.IsTrue (appLinks.Targets [0] is WindowsAppLinkTarget);
+			var t = (WindowsAppLinkTarget)appLinks.Targets [0];
+			Assert.AreEqual (t.Url.ToString(), "example://products/?id=widget");
+			Assert.AreEqual (t.AppId, "12345");
+			Assert.AreEqual (t.AppName, "Example Store");
+		}
+
+		[Test]
+		public void SimpleWindowsPhoneMetaDataTest ()
+		{
+			var resolver = new HttpClientAppLinkResolver ();
+			var appLinks = resolver.ResolveAppLinks (HOST_BASE + "SimpleWindowsPhoneMetaData.html").Result;
+
+			Assert.IsNotNull (appLinks);
+			Assert.Greater (appLinks.Targets.Count, 0);
+
+			Assert.IsTrue (appLinks.Targets [0] is WindowsPhoneAppLinkTarget);
+			var t = (WindowsPhoneAppLinkTarget)appLinks.Targets [0];
+			Assert.AreEqual (t.Url.ToString(), "example://products/?id=widget");
+			Assert.AreEqual (t.AppId, "12345");
+			Assert.AreEqual (t.AppName, "Example Store");
+		}
+
+		[Test]
+		public void SimpleWindowsUniversalMetaDataTest ()
+		{
+			var resolver = new HttpClientAppLinkResolver ();
+			var appLinks = resolver.ResolveAppLinks (HOST_BASE + "SimpleWindowsUniversalMetaData.html").Result;
+
+			Assert.IsNotNull (appLinks);
+			Assert.Greater (appLinks.Targets.Count, 0);
+
+			Assert.IsTrue (appLinks.Targets [0] is WindowsUniversalAppLinkTarget);
+			var t = (WindowsUniversalAppLinkTarget)appLinks.Targets [0];
+			Assert.AreEqual (t.Url.ToString(), "example://products/?id=widget");
+			Assert.AreEqual (t.AppId, "12345");
+			Assert.AreEqual (t.AppName, "Example Store");
+		}
+
+		[Test]
 		public void MultiTargetsMetaData ()
 		{
 			var resolver = new HttpClientAppLinkResolver ();

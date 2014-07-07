@@ -59,6 +59,7 @@
     <Compile Include="RefererViewBar.cs" />
     <Compile Include="AppLinks.cs" />
     <Compile Include="Utility.cs" />
+    <Compile Include="FacebookIndexResolver.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
 </Project>
