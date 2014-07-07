@@ -52,7 +52,7 @@
     <Compile Include="AppLinks.cs" />
     <Compile Include="AppLinkNavigator.cs" />
     <Compile Include="Utility.cs" />
-    <Compile Include="FacebookIndexResolver.cs" />
+    <Compile Include="FacebookIndexAppLinkResolver.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

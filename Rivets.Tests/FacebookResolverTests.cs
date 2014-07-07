@@ -24,7 +24,7 @@ namespace Rivets.Tests
 		[Test]
 		public void FacebookIndexTest()
 		{
-			var fb = new FacebookIndexResolver(FB_APP_ID, FB_CLIENT_TOKEN);
+			var fb = new FacebookIndexAppLinkResolver(FB_APP_ID, FB_CLIENT_TOKEN);
 			var al = fb.ResolveAppLinks ("http://fb.me/729250327126474").Result;
 
 			Assert.IsNotNull (al);
@@ -36,7 +36,7 @@ namespace Rivets.Tests
 		[Test]
 		public void NoAppLinksFoundTest()
 		{
-			var fb = new FacebookIndexResolver(FB_APP_ID, FB_CLIENT_TOKEN);
+			var fb = new FacebookIndexAppLinkResolver(FB_APP_ID, FB_CLIENT_TOKEN);
 			var al = fb.ResolveAppLinks ("http://some.fictional.url.com").Result;
 
 			Assert.IsNotNull (al);

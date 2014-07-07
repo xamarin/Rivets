@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace Rivets
 {
-	public class FacebookIndexResolver : IAppLinkResolver
+	public class FacebookIndexAppLinkResolver : IAppLinkResolver
 	{
 		const string GRAPH_API_URL = "https://graph.facebook.com";
 
@@ -17,7 +17,7 @@ namespace Rivets
 		HttpClient http = new HttpClient();
 		#endif
 
-		public FacebookIndexResolver (string appId, string clientToken)
+		public FacebookIndexAppLinkResolver (string appId, string clientToken)
 		{
 			AppId = appId;
 			ClientToken = clientToken;
@@ -61,6 +61,7 @@ namespace Rivets
 			#if PORTABLE
 			var data = string.Empty;
 			#else
+			Console.WriteLine (builder.ToString ());
 			var data = await http.GetStringAsync (builder.ToString ());
 			#endif
 
@@ -99,12 +100,22 @@ namespace Rivets
 
 				if (aljson.ContainsKey ("android")) {
 					var items = (JsonArray)aljson ["android"];
-					al.Targets.AddRange (parseWindowsTargets (items));
+					al.Targets.AddRange (parseAndroidTargets (items));
+				}
+
+				if (aljson.ContainsKey ("windows")) {
+					var items = (JsonArray)aljson ["windows"];
+					al.Targets.AddRange (parseWindowsTargets (items, () => new WindowsAppLinkTarget ()));
 				}
 
 				if (aljson.ContainsKey ("windows_phone")) {
 					var items = (JsonArray)aljson ["windows_phone"];
-					al.Targets.AddRange (parseWindowsTargets (items));
+					al.Targets.AddRange (parseWindowsTargets (items, () => new WindowsPhoneAppLinkTarget ()));
+				}
+
+				if (aljson.ContainsKey ("windows_universal")) {
+					var items = (JsonArray)aljson ["windows_universal"];
+					al.Targets.AddRange (parseWindowsTargets (items, () => new WindowsUniversalAppLinkTarget ()));
 				}
 
 				results.Add (uri, al);
@@ -162,12 +173,12 @@ namespace Rivets
 			return targets;
 		}
 
-		List<IAppLinkTarget> parseWindowsTargets(JsonArray json)
+		List<IAppLinkTarget> parseWindowsTargets(JsonArray json, Func<WindowsAppLinkTarget> targetFactory)
 		{
 			var targets = new List<IAppLinkTarget> ();
 
 			foreach (var item in json) {
-				var target = new WindowsPhoneAppLinkTarget ();
+				var target = targetFactory ();
 
 				if (item.ContainsKey ("url"))
 					target.Url = new Uri ((string)item ["url"]);
