@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+	<appSettings>
+		<add key="FB_APP_ID" value="" />
+		<add key="FB_CLIENT_TOKEN" value="" />
+	</appSettings>
+</configuration>
