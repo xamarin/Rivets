@@ -24,6 +24,8 @@ namespace Rivets.Tests
 		[Test]
 		public void FacebookIndexTest()
 		{
+			CheckConfig ();
+
 			var fb = new FacebookIndexAppLinkResolver(FB_APP_ID, FB_CLIENT_TOKEN);
 			var al = fb.ResolveAppLinks ("http://fb.me/729250327126474").Result;
 
@@ -36,12 +38,20 @@ namespace Rivets.Tests
 		[Test]
 		public void NoAppLinksFoundTest()
 		{
+			CheckConfig ();
+
 			var fb = new FacebookIndexAppLinkResolver(FB_APP_ID, FB_CLIENT_TOKEN);
 			var al = fb.ResolveAppLinks ("http://some.fictional.url.com").Result;
 
 			Assert.IsNotNull (al);
 			Assert.IsNotNull (al.Targets);
 			Assert.AreEqual (al.Targets.Count, 0);
+		}
+
+		void CheckConfig()
+		{
+			Assert.IsNotEmpty (FB_APP_ID, "You must provide a Facebook Client Token in your app.config (FB_APP_ID key)");
+			Assert.IsNotEmpty (FB_CLIENT_TOKEN, "You must provide a Facebook Client Token in your app.config (FB_CLIENT_TOKEN key)");
 		}
 	}
 }
