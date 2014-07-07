@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>{A8B9F7A6-7275-47B7-A1C4-2284334E81E7}</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Rivets</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AppLink.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AppLinkData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AppLinkNavigator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AppLinks.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AppLinkUrl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FacebookIndexAppLinkResolver.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HttpClientAppLinkResolver.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IAppLinkNavigation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IAppLinkResolver.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IAppLinkTarget.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NavigationResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utility.cs" />
+  </ItemGroup>
+</Project>

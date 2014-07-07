@@ -52,24 +52,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Resources\Resource.designer.cs" />
-    <Compile Include="AppLink.cs" />
-    <Compile Include="HttpClientAppLinkResolver.cs" />
-    <Compile Include="IAppLinkNavigation.cs" />
-    <Compile Include="IAppLinkResolver.cs" />
-    <Compile Include="IAppLinkTarget.cs" />
-    <Compile Include="NavigationResult.cs" />
-    <Compile Include="AppLinkUrl.cs" />
-    <Compile Include="AppLinkNavigator.cs" />
-    <Compile Include="AppLinks.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utility.cs" />
-    <Compile Include="FacebookIndexResolver.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\values\Strings.xml" />
-  </ItemGroup>
+  <Import Project="Rivets.projitems" Label="Shared" Condition="Exists('Rivets.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
-    <Folder Include="Properties\" />
+    <Folder Include="Resources\values\" />
   </ItemGroup>
 </Project>

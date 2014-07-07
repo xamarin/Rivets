@@ -40,20 +40,7 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AppLink.cs" />
-    <Compile Include="AppLinkUrl.cs" />
-    <Compile Include="HttpClientAppLinkResolver.cs" />
-    <Compile Include="IAppLinkNavigation.cs" />
-    <Compile Include="IAppLinkResolver.cs" />
-    <Compile Include="IAppLinkTarget.cs" />
-    <Compile Include="NavigationResult.cs" />
-    <Compile Include="AppLinks.cs" />
-    <Compile Include="AppLinkNavigator.cs" />
-    <Compile Include="Utility.cs" />
-    <Compile Include="FacebookIndexAppLinkResolver.cs" />
-  </ItemGroup>
+  <Import Project="Rivets.projitems" Label="Shared" Condition="Exists('Rivets.projitems')" />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\System.Json.PCL\System.Json.PCL.csproj">
