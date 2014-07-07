@@ -221,8 +221,8 @@ namespace Rivets
                     var navigateUrl = BuildUrl(appLink, appLink.WebUrl, extras);
 
 					var handled = RaiseWillNavigateToWebUrl(navigateUrl);
-					if (handled)
-						return NavigationResult.Web
+                    if (handled)
+                        return NavigationResult.Web;
 
                     var launched = await Windows.System.Launcher.LaunchUriAsync(navigateUrl);
 
