@@ -50,8 +50,6 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <Compile Include="..\..\..\AeroFS\xamarin\Rivets\Rivets\RefererViewBar.cs">
-      <Link>RefererViewBar.cs</Link>
-    </Compile>
+    <Compile Include="RefererViewBar.cs" />
   </ItemGroup>
 </Project>
