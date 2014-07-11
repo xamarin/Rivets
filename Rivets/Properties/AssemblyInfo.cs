@@ -27,7 +27,7 @@ using System.Runtime.CompilerServices;
 
 internal class AssemblyInfo
 {
-	public const string AssemblyVersion = "1.0.3";
+	public const string AssemblyVersion = "1.0.4";
 
 	public const string AssemblyTitle = "Rivets";
 	public const string AssemblyProduct = "Rivets";
