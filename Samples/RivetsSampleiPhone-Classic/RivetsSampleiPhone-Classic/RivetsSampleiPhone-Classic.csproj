@@ -3,8 +3,8 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
-    <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <ProjectGuid>{2AE52483-E5AD-4509-B3BE-0C759BC38BEF}</ProjectGuid>
+    <ProjectTypeGuids>{6BC8ED88-2882-458C-8E55-DFD12B67127B};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{704A0BAA-3B8D-445F-BF00-ED709E8F1400}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>RivetsSampleiPhone</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
@@ -87,7 +87,7 @@
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
-    <Reference Include="Xamarin.iOS" />
+    <Reference Include="monotouch" />
     <Reference Include="MonoTouch.Dialog-1" />
     <Reference Include="System.Json" />
   </ItemGroup>
@@ -104,11 +104,11 @@
     <Compile Include="MainViewController.cs" />
     <Compile Include="ProductViewController.cs" />
   </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Rivets\Rivets.iOS.csproj">
-      <Project>{67B83156-A724-4B1B-870B-9B1AD1673D7A}</Project>
-      <Name>Rivets.iOS</Name>
+    <ProjectReference Include="..\..\..\Rivets\Rivets.iOS-Classic.csproj">
+      <Project>{C4F1CE5C-A13F-4361-BE64-D5336F5714A9}</Project>
+      <Name>Rivets.iOS-Classic</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

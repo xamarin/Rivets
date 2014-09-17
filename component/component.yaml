@@ -1,4 +1,4 @@
-version: 1.0.4
+version: 1.0.5
 name: Rivets
 id: rivets
 publisher: Xamarin
@@ -9,7 +9,9 @@ libraries:
   android: 
     - ../lib/monoandroid/Rivets.dll
   ios:
-    - ../lib/monotouch/Rivets.dll
+    - ../lib/ios-classic/Rivets.dll
+  ios-unified:
+    - ../lib/ios/Rivets.dll
   wp8:
     - ../lib/wp8/Rivets.dll
     - ../lib/wp8/System.Json.PCL.dll
@@ -17,11 +19,13 @@ libraries:
     - ../lib/wp8/System.Net.Http.Extensions.dll
     - ../lib/wp8/System.Net.Http.Primitives.dll
 samples:
-  - name: "RivetsSampleAndroid"
+  - name: "Rivets Sample - Android"
     path: ../Samples/RivetsSampleAndroid/RivetsSampleAndroid.sln
-  - name: "RivetsSampleiPhone"
+  - name: "Rivets Sample - iOS Unified API"
     path: ../Samples/RivetsSampleiPhone/RivetsSampleiPhone.sln
-  - name: "RivetsSampleWinPhone8"
+  - name: "Rivets Sample - iOS Classic API"
+    path: ../Samples/RivetsSampleiPhone-Classic/RivetsSampleiPhone-Classic.sln
+  - name: "Rivets Sample - Windows Phone 8"
     path: ../Samples/RivetsSampleWinPhone8/RivetsSampleWinPhone8.sln
 icons: 
   - icons/rivets_128x128.png

@@ -2,6 +2,7 @@ tools
 bin
 obj
 *.xam
+*.nupkg
 *.DS_Store
 *.pidb
 *.userprefs

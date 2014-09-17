@@ -3,8 +3,8 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <ProjectGuid>{67B83156-A724-4B1B-870B-9B1AD1673D7A}</ProjectGuid>
+    <ProjectTypeGuids>{6BC8ED88-2882-458C-8E55-DFD12B67127B};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{C4F1CE5C-A13F-4361-BE64-D5336F5714A9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Rivets</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
@@ -14,32 +14,33 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\lib\ios</OutputPath>
+    <OutputPath>..\lib\ios-classic</OutputPath>
     <DefineConstants>DEBUG;__IOS__</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <DocumentationFile>..\lib\ios\Rivets.xml</DocumentationFile>
+    <DocumentationFile>..\lib\ios-classic\Rivets.xml</DocumentationFile>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
-    <OutputPath>..\lib\ios</OutputPath>
+    <OutputPath>..\lib\ios-classic</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <DefineConstants>__IOS__</DefineConstants>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)$(Configuration)\</IntermediateOutputPath>
+    <DocumentationFile>..\lib\ios-classic\Rivets.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
-    <BaseIntermediateOutputPath>obj\ios\</BaseIntermediateOutputPath>
+    <BaseIntermediateOutputPath>obj\ios-classic\</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
-    <Reference Include="Xamarin.iOS" />
+    <Reference Include="monotouch" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Json" />
   </ItemGroup>
@@ -47,7 +48,7 @@
     <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="Rivets.projitems" Label="Shared" Condition="Exists('Rivets.projitems')" />
-  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <ItemGroup>
     <Compile Include="RefererViewBar.cs" />
   </ItemGroup>

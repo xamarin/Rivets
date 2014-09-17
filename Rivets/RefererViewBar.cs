@@ -1,10 +1,20 @@
 ﻿using System;
-using MonoTouch.UIKit;
 using System.Drawing;
 using System.Threading.Tasks;
-using MonoTouch.Foundation;
 using System.Collections.Generic;
 using System.Linq;
+
+#if __UNIFIED__
+using UIKit;
+using CoreGraphics;
+using Foundation;
+#else
+using MonoTouch.UIKit;
+using MonoTouch.Foundation;
+
+using CGRect = global::System.Drawing.RectangleF;
+using nfloat = global::System.Single;
+#endif
 
 namespace Rivets
 {
@@ -54,9 +64,9 @@ namespace Rivets
 
 			var statusBarHeight = GetStatusBarHeight ();
 
-			baseView = new UIView (new RectangleF (0, 0, controller.View.Bounds.Width, BAR_HEIGHT + statusBarHeight));
+			baseView = new UIView (new CGRect (0, 0, controller.View.Bounds.Width, BAR_HEIGHT + statusBarHeight));
 
-			labelText = new UILabel (new RectangleF (0, statusBarHeight, baseView.Frame.Width - BUTTON_WIDTH, BAR_HEIGHT));
+			labelText = new UILabel (new CGRect (0, statusBarHeight, baseView.Frame.Width - BUTTON_WIDTH, BAR_HEIGHT));
 			labelText.AutoresizingMask = UIViewAutoresizing.FlexibleWidth;
 			labelText.Font = UIFont.SystemFontOfSize (UIFont.SmallSystemFontSize);
 			labelText.TextAlignment = UITextAlignment.Center;
@@ -64,7 +74,7 @@ namespace Rivets
 			labelText.Text = lblText;
 
 			buttonClose = new UIButton (UIButtonType.Custom);
-			buttonClose.Frame = new RectangleF (labelText.Frame.Right, statusBarHeight, BUTTON_WIDTH, BUTTON_WIDTH);
+			buttonClose.Frame = new CGRect (labelText.Frame.Right, statusBarHeight, BUTTON_WIDTH, BUTTON_WIDTH);
 			buttonClose.AutoresizingMask = UIViewAutoresizing.FlexibleLeftMargin;
 
 			baseView.AddSubviews (labelText, buttonClose);
@@ -205,12 +215,12 @@ namespace Rivets
 			var statusBarHeight = GetStatusBarHeight(); 
 
 			if (navBar != null) {
-				navBar.Frame = new RectangleF (navBar.Frame.X, BAR_HEIGHT + statusBarHeight, navBar.Frame.Width, navBar.Frame.Height);
+				navBar.Frame = new CGRect (navBar.Frame.X, BAR_HEIGHT + statusBarHeight, navBar.Frame.Width, navBar.Frame.Height);
 			}
 
-			controllerView.Frame = new RectangleF (rootView.Bounds.X, BAR_HEIGHT, rootView.Bounds.Width, rootView.Bounds.Height - BAR_HEIGHT);
+			controllerView.Frame = new CGRect (rootView.Bounds.X, BAR_HEIGHT, rootView.Bounds.Width, rootView.Bounds.Height - BAR_HEIGHT);
 
-			baseView.Frame = new RectangleF (baseView.Frame.X, baseView.Frame.Y, controllerView.Bounds.Width, BAR_HEIGHT + statusBarHeight);
+			baseView.Frame = new CGRect (baseView.Frame.X, baseView.Frame.Y, controllerView.Bounds.Width, BAR_HEIGHT + statusBarHeight);
 			baseView.Superview.BringSubviewToFront (baseView);
 		}
 
@@ -219,11 +229,11 @@ namespace Rivets
 			var statusBarHeight = GetStatusBarHeight ();
 
 			if (navBar != null) {
-				navBar.Frame = new RectangleF (navBar.Frame.X, rootView.Frame.Y + statusBarHeight, navBar.Frame.Width, navBar.Frame.Height);
+				navBar.Frame = new CGRect (navBar.Frame.X, rootView.Frame.Y + statusBarHeight, navBar.Frame.Width, navBar.Frame.Height);
 			}
 
-			baseView.Frame = new RectangleF (baseView.Frame.X, baseView.Frame.Y, baseView.Frame.Width, 0f);
-			controllerView.Frame = new RectangleF (controllerView.Frame.X, rootView.Frame.Y, controllerView.Frame.Width, rootView.Frame.Height);
+			baseView.Frame = new CGRect (baseView.Frame.X, baseView.Frame.Y, baseView.Frame.Width, 0f);
+			controllerView.Frame = new CGRect (controllerView.Frame.X, rootView.Frame.Y, controllerView.Frame.Width, rootView.Frame.Height);
 		}
 
 		public void Remove()
@@ -237,9 +247,9 @@ namespace Rivets
 			AttachedToController.View = controllerView;
 		}
 
-		float GetStatusBarHeight()
+		nfloat GetStatusBarHeight()
 		{
-			var statusBarHeight = 0f; 
+			nfloat statusBarHeight = 0f; 
 
 			if (UIDevice.CurrentDevice.CheckSystemVersion (7, 0) && !UIApplication.SharedApplication.StatusBarHidden) {
 				statusBarHeight = UIApplication.SharedApplication.StatusBarFrame.Height;

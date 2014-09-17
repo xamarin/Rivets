@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using Foundation;
-using UIKit;
+using MonoTouch.Foundation;
+using MonoTouch.UIKit;
 using MonoTouch.Dialog;
 using System.Drawing;
 
@@ -53,7 +53,7 @@ namespace RivetsSampleiPhone
 					refererViewBar.Remove ();
 
 					// Go back to our main root controller since the action was closed
-					NavigationController.PopViewController (true);
+					NavigationController.PopViewControllerAnimated (true);
 				});
 			}
 		}

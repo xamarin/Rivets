@@ -5,7 +5,11 @@ using System.Json;
 using System.Text;
 
 #if __IOS__
+#if __UNIFIED__
+using UIKit;
+#else
 using MonoTouch.UIKit;
+#endif
 #endif
 
 #if __ANDROID__
