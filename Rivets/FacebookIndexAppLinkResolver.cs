@@ -61,7 +61,10 @@ namespace Rivets
 			#if PORTABLE
 			var data = string.Empty;
 			#else
+
+#if !WINRT
 			Console.WriteLine (builder.ToString ());
+#endif
 			var data = await http.GetStringAsync (builder.ToString ());
 			#endif
 
