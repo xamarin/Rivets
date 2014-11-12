@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>Rivets</id>
+        <version>1.0.6.0</version>
+        <title>Rivets</title>
+        <authors>Jonathan Dick</authors>
+        <owners>Xamarin Inc</owners>
+        <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
+        <projectUrl>https://github.com/Redth/Rivets</projectUrl>
+        <iconUrl>http://xamarin-component-icons.s3.amazonaws.com/Rivets.png</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Rivets is a C# implementation of App Links. It's functionally a port of Bolts, the Java/Obj-C implementation.
+
+App Links are a new open source, cross-platform standard for helping link between Mobile and the Web (and vice-versa).
+
+App Links are a defined set of metadata that can be advertised within html of web pages that specify how to deep link to content inside of a Mobile app.
+
+App Links are about the discovery of ways to link between Mobile and Web.</description>
+        <summary>Rivets is a C# implementation of App Links. It's functionally a port of Bolts, the Java/Obj-C implementation.</summary>
+        <copyright>2014 Xamarin Inc</copyright>
+        <tags>xamarin, pcl, rivets, bolts, applinks, app links, applink, link, boltsframework, windows phone, winphone, wp8, winrt, android, ios, monoandroid, monodroid, monotouch</tags>
+        <frameworkAssemblies>
+          <frameworkAssembly assemblyName="System.Net.Http" targetFramework=".NETFramework4.5" />
+          <frameworkAssembly assemblyName="System.Net.Http.WebRequest" targetFramework=".NETFramework4.5" />
+          
+          <frameworkAssembly assemblyName="System.Net.Http" targetFramework="MonoTouch10" />
+          <frameworkAssembly assemblyName="System.Json" targetFramework="MonoTouch10" />
+
+          <!-- Xamarin.iOS Unified API - Requires NuGet 3.x -->
+          <!-- <frameworkAssembly assemblyName="System.Net.Http" targetFramework="Xamarin.iOS10" />
+          <frameworkAssembly assemblyName="System.Json" targetFramework="Xamarin.iOS10" /> -->
+
+          <frameworkAssembly assemblyName="System.Net.Http" targetFramework="MonoAndroid10" />
+          <frameworkAssembly assemblyName="System.Json" targetFramework="MonoAndroid10" />
+        </frameworkAssemblies>
+        <dependencies>
+            <dependency id="Microsoft.Net.Http" version="2.2.22" />
+        </dependencies>
+    </metadata>
+    <files>
+        <!-- Android -->
+        <file src="lib\monoandroid\Rivets.dll" target="lib\MonoAndroid10\Rivets.dll" />
+        <file src="lib\monoandroid\Rivets.xml" target="lib\MonoAndroid10\Rivets.xml" />
+        
+        <!-- iOS -->
+        <file src="lib\ios-classic\Rivets.dll" target="lib\MonoTouch10\Rivets.dll" />
+        <file src="lib\ios-classic\Rivets.xml" target="lib\MonoTouch10\Rivets.xml" />
+
+        <!-- iOS Unified API - Requires NuGet 3.x -->
+        <!-- <file src="lib\ios\Rivets.dll" target="lib\Xamarin.iOS10\Rivets.dll" />
+        <file src="lib\ios\Rivets.xml" target="lib\Xamarin.iOS10\Rivets.xml" /> -->
+        
+        <!-- .NET 4.5 -->
+        <file src="lib\net45\Rivets.dll" target="lib\net45\Rivets.dll" />
+        <file src="lib\net45\Rivets.xml" target="lib\net45\Rivets.xml" />
+        <file src="lib\net45\System.Json.PCL.dll" target="lib\net45\System.Json.PCL.dll" />
+
+        <!-- Windows Phone 8 Silverlight -->
+        <file src="lib\wp8\Rivets.dll" target="lib\wp8\Rivets.dll" />
+        <file src="lib\wp8\Rivets.xml" target="lib\wp8\Rivets.xml" />
+        <file src="lib\wp8\System.Json.PCL.dll" target="lib\wp8\System.Json.PCL.dll" />
+
+        <!-- Portable -->
+       <!-- <file src="lib\portable-net45\Rivets.dll" target="lib\portable-net45+wp8+win8+MonoAndroid10+MonoTouch10\Rivets.dll" />
+        <file src="lib\portable-net45\Rivets.xml" target="lib\portable-net45+wp8+win8+MonoAndroid10+MonoTouch10\Rivets.xml" />
+        <file src="lib\portable-net45\System.Json.PCL.dll" target="lib\portable-net45+wp8+win8+MonoAndroid10+MonoTouch10\System.Json.PCL.dll" />-->
+
+
+<!-- Profile259 -->
+<file src="lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Rivets.dll" target="lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Rivets.dll" />
+<file src="lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Rivets.xml" target="lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Rivets.xml" />
+<file src="lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\System.Json.PCL.dll" target="lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\System.Json.PCL.dll" />
+        
+       <!-- Profile32 -->
+       <file src="lib\portable-netcore451+wpa81\Rivets.dll" target="lib\portable-netcore451+wpa81\Rivets.dll" />
+<file src="lib\portable-netcore451+wpa81\Rivets.xml" target="lib\portable-net45+netcore45+wpa81+MonoAndroid1+MonoTouch1\Rivets.xml" />
+<file src="lib\portable-netcore451+wpa81\System.Json.PCL.dll" target="lib\portable-net45+netcore45+wpa81+MonoAndroid1+MonoTouch1\System.Json.PCL.dll" />
+        
+        
+    </files>
+</package>

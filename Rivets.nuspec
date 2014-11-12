@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Rivets</id>
-        <version>1.0.5.0</version>
+        <version>1.0.6.0</version>
         <title>Rivets</title>
         <authors>Jonathan Dick</authors>
         <owners>Xamarin Inc</owners>
@@ -62,8 +62,21 @@ App Links are about the discovery of ways to link between Mobile and Web.</descr
         <file src="lib\wp8\System.Json.PCL.dll" target="lib\wp8\System.Json.PCL.dll" />
 
         <!-- Portable -->
-        <file src="lib\portable-net45\Rivets.dll" target="lib\portable-net45+wp8+win8+MonoAndroid10+MonoTouch10\Rivets.dll" />
+       <!-- <file src="lib\portable-net45\Rivets.dll" target="lib\portable-net45+wp8+win8+MonoAndroid10+MonoTouch10\Rivets.dll" />
         <file src="lib\portable-net45\Rivets.xml" target="lib\portable-net45+wp8+win8+MonoAndroid10+MonoTouch10\Rivets.xml" />
-        <file src="lib\portable-net45\System.Json.PCL.dll" target="lib\portable-net45+wp8+win8+MonoAndroid10+MonoTouch10\System.Json.PCL.dll" />
+        <file src="lib\portable-net45\System.Json.PCL.dll" target="lib\portable-net45+wp8+win8+MonoAndroid10+MonoTouch10\System.Json.PCL.dll" />-->
+
+
+<!-- Profile259 -->
+<file src="lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Rivets.dll" target="lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Rivets.dll" />
+<file src="lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Rivets.xml" target="lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Rivets.xml" />
+<file src="lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\System.Json.PCL.dll" target="lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\System.Json.PCL.dll" />
+        
+       <!-- Profile32 -->
+       <file src="lib\portable-netcore451+wpa81\Rivets.dll" target="lib\portable-netcore451+wpa81\Rivets.dll" />
+<file src="lib\portable-netcore451+wpa81\Rivets.xml" target="lib\portable-net45+netcore45+wpa81+MonoAndroid1+MonoTouch1\Rivets.xml" />
+<file src="lib\portable-netcore451+wpa81\System.Json.PCL.dll" target="lib\portable-net45+netcore45+wpa81+MonoAndroid1+MonoTouch1\System.Json.PCL.dll" />
+        
+        
     </files>
 </package>

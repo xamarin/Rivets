@@ -128,7 +128,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Rivets.WinRT\Rivets.WinRT.csproj">
+    <ProjectReference Include="..\Rivets\Rivets.WinRT.csproj">
       <Project>{3828939a-2556-44f3-9a92-60ffdbf57e60}</Project>
       <Name>Rivets.WinRT</Name>
     </ProjectReference>
