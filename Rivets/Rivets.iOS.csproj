@@ -30,6 +30,7 @@
     <ConsolePause>false</ConsolePause>
     <DefineConstants>__IOS__</DefineConstants>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)$(Configuration)\</IntermediateOutputPath>
+    <DocumentationFile>..\lib\ios\Rivets.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <BaseIntermediateOutputPath>obj\ios\</BaseIntermediateOutputPath>

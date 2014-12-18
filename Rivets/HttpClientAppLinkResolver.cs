@@ -113,10 +113,15 @@ namespace Rivets
 
 		void AddiOSTargets(List<MetaData> metadata, string platform, List<IAppLinkTarget> targets)
 		{
-			var urls = metadata.Where (m => m.Property.Equals (META_TAG_PREFIX + ":" + platform + ":" + KEY_URL, StringComparison.InvariantCultureIgnoreCase));
-			var appStoreIds = metadata.Where (m => m.Property.Equals (META_TAG_PREFIX + ":" + platform + ":" + KEY_APP_STORE_ID, StringComparison.InvariantCultureIgnoreCase));
-			var appNames =  metadata.Where (m => m.Property.Equals (META_TAG_PREFIX + ":" + platform + ":" + KEY_APP_NAME, StringComparison.InvariantCultureIgnoreCase));
-
+#if WINRT
+			var urls = metadata.Where (m => m.Property.Equals (META_TAG_PREFIX + ":" + platform + ":" + KEY_URL, StringComparison.OrdinalIgnoreCase));
+			var appStoreIds = metadata.Where (m => m.Property.Equals (META_TAG_PREFIX + ":" + platform + ":" + KEY_APP_STORE_ID, StringComparison.OrdinalIgnoreCase));
+			var appNames =  metadata.Where (m => m.Property.Equals (META_TAG_PREFIX + ":" + platform + ":" + KEY_APP_NAME, StringComparison.OrdinalIgnoreCase));
+#else
+            var urls = metadata.Where(m => m.Property.Equals(META_TAG_PREFIX + ":" + platform + ":" + KEY_URL, StringComparison.InvariantCultureIgnoreCase));
+            var appStoreIds = metadata.Where(m => m.Property.Equals(META_TAG_PREFIX + ":" + platform + ":" + KEY_APP_STORE_ID, StringComparison.InvariantCultureIgnoreCase));
+            var appNames = metadata.Where(m => m.Property.Equals(META_TAG_PREFIX + ":" + platform + ":" + KEY_APP_NAME, StringComparison.InvariantCultureIgnoreCase));
+#endif
 			if (urls != null) {
 				for (int i = 0; i < urls.Count(); i++) {
 
@@ -149,12 +154,19 @@ namespace Rivets
 
 		void AddAndroidTargets(List<MetaData> metadata, List<IAppLinkTarget> targets)
 		{
-			var packages = metadata.Where (m => m.Property.Equals (KEY_ANDROID_PACKAGE, StringComparison.InvariantCultureIgnoreCase));
+#if WINRT
+			var packages = metadata.Where (m => m.Property.Equals (KEY_ANDROID_PACKAGE, StringComparison.OrdinalIgnoreCase));
+			var classes = metadata.Where (m => m.Property.Equals (KEY_ANDROID_CLASS, StringComparison.OrdinalIgnoreCase));
+			var urls =  metadata.Where (m => m.Property.Equals (KEY_ANDROID_URL, StringComparison.OrdinalIgnoreCase)); 
+			var appNames = metadata.Where (m => m.Property.Equals (KEY_ANDROID_APPNAME, StringComparison.OrdinalIgnoreCase));
+#else
+            var packages = metadata.Where (m => m.Property.Equals (KEY_ANDROID_PACKAGE, StringComparison.InvariantCultureIgnoreCase));
 			var classes = metadata.Where (m => m.Property.Equals (KEY_ANDROID_CLASS, StringComparison.InvariantCultureIgnoreCase));
 			var urls =  metadata.Where (m => m.Property.Equals (KEY_ANDROID_URL, StringComparison.InvariantCultureIgnoreCase)); 
 			var appNames = metadata.Where (m => m.Property.Equals (KEY_ANDROID_APPNAME, StringComparison.InvariantCultureIgnoreCase));
+#endif
 
-			// Package is the only required property, so we'll use it to determine the count of items to go through
+            // Package is the only required property, so we'll use it to determine the count of items to go through
 			if (packages != null) {
 				for (int i = 0; i < packages.Count(); i++) {
 					var target = new AndroidAppLinkTarget ();
@@ -187,10 +199,15 @@ namespace Rivets
 
 		void AddWindowsTargets(List<MetaData> metadata, string platform, List<IAppLinkTarget> targets)
 		{
-			var urls = metadata.Where (m => m.Property.Equals (META_TAG_PREFIX + ":" + platform + ":" + KEY_URL, StringComparison.InvariantCultureIgnoreCase));
+#if WINRT
+            var urls = metadata.Where (m => m.Property.Equals (META_TAG_PREFIX + ":" + platform + ":" + KEY_URL, StringComparison.OrdinalIgnoreCase));
+			var appIds = metadata.Where (m => m.Property.Equals (META_TAG_PREFIX + ":" + platform + ":" + KEY_APP_ID, StringComparison.OrdinalIgnoreCase));
+			var appNames =  metadata.Where (m => m.Property.Equals (META_TAG_PREFIX + ":" + platform + ":" + KEY_APP_NAME, StringComparison.OrdinalIgnoreCase));
+#else
+            var urls = metadata.Where (m => m.Property.Equals (META_TAG_PREFIX + ":" + platform + ":" + KEY_URL, StringComparison.InvariantCultureIgnoreCase));
 			var appIds = metadata.Where (m => m.Property.Equals (META_TAG_PREFIX + ":" + platform + ":" + KEY_APP_ID, StringComparison.InvariantCultureIgnoreCase));
 			var appNames =  metadata.Where (m => m.Property.Equals (META_TAG_PREFIX + ":" + platform + ":" + KEY_APP_NAME, StringComparison.InvariantCultureIgnoreCase));
-
+#endif
 			if (urls != null) {
 				for (int i = 0; i < urls.Count(); i++) {
 
@@ -258,7 +275,11 @@ namespace Rivets
 				if (string.IsNullOrEmpty (property) || !property.Contains (":"))
 					continue;
 
+#if WINRT
+				if (property.StartsWith (META_TAG_PREFIX, StringComparison.OrdinalIgnoreCase)) {
+#else
 				if (property.StartsWith (META_TAG_PREFIX, StringComparison.InvariantCultureIgnoreCase)) {
+#endif
 					var meta = new MetaData();
 					meta.Property = property;
 					if (!string.IsNullOrEmpty(content))
