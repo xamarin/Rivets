@@ -42,14 +42,10 @@ App Links are about the discovery of ways to link between Mobile and Web.</descr
         <!-- Android -->
         <file src="lib\monoandroid\Rivets.dll" target="lib\MonoAndroid10\Rivets.dll" />
         <file src="lib\monoandroid\Rivets.xml" target="lib\MonoAndroid10\Rivets.xml" />
-        
-        <!-- iOS -->
-        <file src="lib\ios-classic\Rivets.dll" target="lib\MonoTouch10\Rivets.dll" />
-        <file src="lib\ios-classic\Rivets.xml" target="lib\MonoTouch10\Rivets.xml" />
 
-        <!-- iOS Unified API - Requires NuGet 3.x -->
-        <!-- <file src="lib\ios\Rivets.dll" target="lib\Xamarin.iOS10\Rivets.dll" />
-        <file src="lib\ios\Rivets.xml" target="lib\Xamarin.iOS10\Rivets.xml" /> -->
+        <!-- iOS Unified API -->
+        <file src="lib\ios\Rivets.dll" target="lib\Xamarin.iOS10\Rivets.dll" />
+        <file src="lib\ios\Rivets.xml" target="lib\Xamarin.iOS10\Rivets.xml" />
         
         <!-- .NET 4.5 -->
         <file src="lib\net45\Rivets.dll" target="lib\net45\Rivets.dll" />
