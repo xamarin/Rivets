@@ -15,7 +15,7 @@ namespace Rivets
 		}
 
 		public static readonly string Version = AssemblyInfo.AssemblyVersion;
-		public static readonly string UserAgent = "Rivets " + Version;
+		public static readonly string UserAgent = "Xamarin.Rivets/" + Version;
 
 		public static IAppLinkNavigation Navigator { get; set; }
 		public static IAppLinkResolver DefaultResolver { get; set; }

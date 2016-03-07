@@ -234,7 +234,10 @@ namespace Rivets
 			// AppLinks defines a header "Prefer-Html-Meta-Tags"
 			// which if the server obeys, it will only send down 
 			// the meta tags from the html document (and only the applinks ones)
-			http.DefaultRequestHeaders.Add ("Prefer-Html-Meta-Tags", "al");
+			http.DefaultRequestHeaders.TryAddWithoutValidation ("Prefer-Html-Meta-Tags", "al");
+			http.DefaultRequestHeaders.TryAddWithoutValidation ("Accept", "text/html,application/xhtml+xml,application/xml");
+			http.DefaultRequestHeaders.TryAddWithoutValidation ("User-Agent", AppLinks.UserAgent);
+			http.DefaultRequestHeaders.TryAddWithoutValidation ("Accept-Charset", "ISO-8859-1");
 
 			var resp = await http.GetAsync (url);
 
