@@ -61,7 +61,7 @@ namespace Rivets
 			#if PORTABLE
 			var data = string.Empty;
 			#else
-			Console.WriteLine (builder.ToString ());
+			System.Diagnostics.Debug.WriteLine (builder.ToString ());
 			var data = await http.GetStringAsync (builder.ToString ());
 			#endif
 

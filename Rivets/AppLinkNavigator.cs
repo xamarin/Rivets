@@ -199,7 +199,7 @@ namespace Rivets
 
 			return NavigationResult.Failed;
 		}
-        #elif WINDOWS_PHONE
+        #elif WINDOWS_PHONE || WINRT || UWP
         public async Task<NavigationResult> Navigate(AppLink appLink, JsonObject extras, RefererAppLink refererAppLink)
         {
             try
@@ -236,7 +236,7 @@ namespace Rivets
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                System.Diagnostics.Debug.WriteLine(ex);
             }
 
             // Otherwise, navigation fails.
